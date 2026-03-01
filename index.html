@@ -66,6 +66,7 @@ html,body { height:100%; overflow:hidden;
 }
 .swipe-hint svg { width:24px; height:24px; }
 .swipe-hint-text { font-size:11px; letter-spacing:.5px; margin-bottom:2px; }
+.pg-r1 .swipe-hint, .pg-r2 .swipe-hint { color:#fff; opacity:.4; }
 @keyframes hintBounce {
   0%,100% { transform:translateY(0); }
   50% { transform:translateY(5px); }
@@ -122,7 +123,7 @@ html,body { height:100%; overflow:hidden;
   display:inline; padding:2px 8px; border-radius:6px;
   background:rgba(255,255,255,.3); font-weight:700;
 }
-.nar-dim { opacity:.4; }
+.nar-dim { opacity:.55; }
 .nar-emoji { font-size:40px; margin-bottom:16px; display:block; }
 .pg-nar1 .content-z, .pg-nar2 .content-z { padding-bottom:60px; }
 
@@ -151,7 +152,7 @@ html,body { height:100%; overflow:hidden;
 }
 .q-of {
   font-family:'Space Grotesk',monospace;
-  font-size:13px; font-weight:500; opacity:.3;
+  font-size:13px; font-weight:500; opacity:.45;
 }
 .q-bar {
   width:100%; height:4px; border-radius:2px;
@@ -159,7 +160,7 @@ html,body { height:100%; overflow:hidden;
 }
 .q-bar-fill {
   height:100%; border-radius:2px;
-  background:currentColor; opacity:.35;
+  background:currentColor; opacity:.5;
   transition: width .5s cubic-bezier(.4,0,.2,1);
 }
 .q-title {
@@ -228,8 +229,8 @@ html,body { height:100%; overflow:hidden;
   color: #4A0020; text-align:center;
 }
 .r1-card {
-  width:100%; max-width:300px; background:#fff;
-  border-radius:20px; padding:28px 24px 24px;
+  width:100%; max-width:280px; background:#fff;
+  border-radius:20px; padding:20px 20px 18px;
   box-shadow: 0 8px 40px rgba(0,0,0,.15);
   text-align:center; color:#2d2216; position:relative;
   overflow:hidden;
@@ -240,55 +241,55 @@ html,body { height:100%; overflow:hidden;
   background: linear-gradient(90deg,#FF8A65,#CE93D8,#4DD0E1,#FFD54F,#EC407A);
 }
 .r1-badge {
-  display:inline-block; padding:6px 16px; border-radius:20px;
-  background:rgba(0,0,0,.04); font-size:10px;
-  font-weight:600; letter-spacing:2px; margin-bottom:12px;
+  display:inline-block; padding:4px 12px; border-radius:20px;
+  background:rgba(0,0,0,.04); font-size:9px;
+  font-weight:600; letter-spacing:2px; margin-bottom:6px;
   color:#666;
 }
 .r1-score {
   font-family:'Space Grotesk',monospace;
-  font-size: clamp(72px,20vw,96px); font-weight:700;
+  font-size: clamp(56px,16vw,72px); font-weight:700;
   line-height:1; letter-spacing:-3px;
   color:#2d2216;
 }
 .r1-max {
   font-family:'Space Grotesk',monospace;
-  font-size:14px; opacity:.2; margin-bottom:10px;
+  font-size:12px; opacity:.35; margin-bottom:6px;
 }
 .r1-fig {
-  width: clamp(120px,34vw,150px);
-  height: clamp(120px,34vw,150px);
-  margin:4px auto 10px;
+  width: clamp(90px,26vw,110px);
+  height: clamp(90px,26vw,110px);
+  margin:2px auto 6px;
 }
 .r1-type {
-  font-size: clamp(22px,6vw,28px); font-weight:900;
-  margin-bottom:6px;
-}
-.r1-quote {
-  font-size:12.5px; font-weight:400; line-height:1.7;
-  opacity:.4; max-width:240px; margin:0 auto;
+  font-size: clamp(20px,5.5vw,24px); font-weight:900;
+  margin-bottom:4px;
 }
 .r1-tagline {
-  font-size:13px; font-weight:700; line-height:1.6;
-  margin-top:10px; padding:0 8px; color:#2d2216;
+  font-size:13px; font-weight:700; line-height:1.5;
+  margin-top:8px; padding:0 8px; color:#2d2216;
+}
+.r1-desc {
+  font-size:11px; font-weight:400; line-height:1.6;
+  margin-top:6px; padding:0 8px; color:#2d2216; opacity:.5;
 }
 .r1-card-brand {
-  margin-top:14px; padding-top:12px;
+  margin-top:10px; padding-top:8px;
   border-top:1px solid rgba(0,0,0,.06);
-  font-size:10px; letter-spacing:1px; opacity:.2; font-weight:500;
+  font-size:9px; letter-spacing:1px; opacity:.35; font-weight:500;
 }
 .r1-qr {
-  display:flex; align-items:center; gap:10px;
-  margin-top:14px; padding-top:14px;
+  display:flex; align-items:center; gap:8px;
+  margin-top:10px; padding-top:10px;
   border-top:1px solid rgba(0,0,0,.06);
 }
 .r1-qr-img {
-  width:48px; height:48px; border-radius:6px; background:#f5f5f5;
+  width:40px; height:40px; border-radius:6px; background:#f5f5f5;
   flex-shrink:0; display:flex; align-items:center; justify-content:center;
   font-size:7px; color:#999; text-align:center; overflow:hidden;
 }
 .r1-qr-img img { width:100%; height:100%; object-fit:cover; border-radius:6px; }
-.r1-qr-text { font-size:9px; line-height:1.5; opacity:.4; text-align:left; }
+.r1-qr-text { font-size:8px; line-height:1.4; opacity:.55; text-align:left; }
 .pg-r1 .share-btns { margin-top:20px; }
 .pg-r1 .share-foot { color:rgba(255,255,255,.25); }
 
@@ -318,7 +319,7 @@ html,body { height:100%; overflow:hidden;
   font-size:13.5px; font-weight:500; line-height:1.7;
 }
 .fact-src {
-  font-size:10px; opacity:.3; margin-top:4px;
+  font-size:10px; opacity:.45; margin-top:4px;
 }
 .fact-hl { font-weight:700; }
 
@@ -359,9 +360,9 @@ html,body { height:100%; overflow:hidden;
   text-align:right;
 }
 .r3-sig .name { font-size:14px; font-weight:700; }
-.r3-sig .tag { font-size:12px; opacity:.35; margin-top:2px; }
+.r3-sig .tag { font-size:12px; opacity:.5; margin-top:2px; }
 .r3-ref {
-  margin-top:16px; font-size:10px; opacity:.2; line-height:1.5;
+  margin-top:16px; font-size:10px; opacity:.35; line-height:1.5;
 }
 .r3-wrap strong { font-weight:700; }
 
@@ -408,7 +409,7 @@ html,body { height:100%; overflow:hidden;
 .s-btn:active { transform:scale(.97); }
 .s-btn-pri { background:#fff; color:#4A0020; box-shadow:0 4px 16px rgba(0,0,0,.1); }
 .s-btn-sec { background:rgba(255,255,255,.2); color:#fff; }
-.share-foot { margin-top:16px; font-size:11px; opacity:.25; }
+.share-foot { margin-top:16px; font-size:11px; opacity:.4; }
 
 /* ===== QR Code Section ===== */
 .qr-section {
@@ -488,6 +489,21 @@ html,body { height:100%; overflow:hidden;
   .r3-wrap p { font-size:12.5px; line-height:1.8; margin-bottom:10px; }
 }
 
+/* ===== Music Toggle ===== */
+.music-btn {
+  position:fixed; top:16px; right:16px; z-index:100;
+  width:40px; height:40px; border-radius:50%;
+  background:rgba(255,255,255,.25); backdrop-filter:blur(8px);
+  border:none; cursor:pointer; display:flex; align-items:center; justify-content:center;
+  transition: all .3s ease; opacity:0; pointer-events:none;
+}
+.music-btn.visible { opacity:1; pointer-events:auto; }
+.music-btn svg { width:20px; height:20px; stroke:rgba(0,0,0,.5); fill:none; stroke-width:2; stroke-linecap:round; }
+.music-btn.muted svg .wave { opacity:0; }
+.music-btn.muted svg .mute-x { opacity:1; }
+.music-btn svg .mute-x { opacity:0; transition:opacity .2s; }
+.music-btn.muted svg .wave { transition:opacity .2s; }
+
 /* ===== Desktop: phone frame ===== */
 @media (min-width: 768px) {
   html, body {
@@ -508,6 +524,17 @@ html,body { height:100%; overflow:hidden;
 </head>
 <body>
 
+<audio id="bgm" src="bgm.mp3" loop preload="auto"></audio>
+<button class="music-btn" id="musicBtn" aria-label="Toggle music">
+  <svg viewBox="0 0 24 24">
+    <polygon points="11,5 6,9 2,9 2,15 6,15 11,19" fill="currentColor" stroke="none" opacity=".4"/>
+    <path class="wave" d="M14,9.5 Q16.5,12 14,14.5"/>
+    <path class="wave" d="M16,7 Q20,12 16,17"/>
+    <line class="mute-x" x1="16" y1="9" x2="22" y2="15"/>
+    <line class="mute-x" x1="22" y1="9" x2="16" y2="15"/>
+  </svg>
+</button>
+
 <div class="swiper" id="app">
 <div class="swiper-wrapper">
 
@@ -523,7 +550,7 @@ html,body { height:100%; overflow:hidden;
     <div class="cover-emoji">🤯</div>
     <div class="cover-title">你的AI焦虑<br>还好吗？</div>
     <div class="cover-sub">基于 AI 焦虑学术研究 & Pew Research 数据<br>8道题，1分钟，测完可能更焦虑</div>
-    <button class="cover-start" onclick="swiper.slideNext()">
+    <button class="cover-start" onclick="startTest()">
       开始测试 <span class="arrow">↓</span>
     </button>
   </div>
@@ -616,10 +643,10 @@ html,body { height:100%; overflow:hidden;
     <div class="q-bar"><div class="q-bar-fill" style="width:37.5%"></div></div>
     <div class="q-title">你手机里有几个AI App？ 📲</div>
     <div class="q-opts">
-      <div class="q-opt" data-s='{"P":2}'><span class="check-dot">✓</span>0个，在等它们证明自己</div>
+      <div class="q-opt" data-s='{"P":2}'><span class="check-dot">✓</span>0个，想下但不知道从哪开始</div>
       <div class="q-opt" data-s='{}'><span class="check-dot">✓</span>1-2个，够用就行</div>
-      <div class="q-opt" data-s='{"O":2}'><span class="check-dot">✓</span>5个以上，常用的只有1个</div>
-      <div class="q-opt" data-s='{"O":1,"P":1}'><span class="check-dot">✓</span>10个以上，大部分没打开过第二次</div>
+      <div class="q-opt" data-s='{"O":2}'><span class="check-dot">✓</span>下了好几个，但真正用起来的没几个</div>
+      <div class="q-opt" data-s='{"I":2}'><span class="check-dot">✓</span>下了好几个，越用越觉得自己不够</div>
     </div>
   </div>
 </div>
@@ -735,6 +762,27 @@ html,body { height:100%; overflow:hidden;
   </div>
 </div>
 
+<!-- ========== RESULT: SCORE + SHARE ========== -->
+<div class="swiper-slide pg-r1" id="pgR1">
+  <div class="content-z" style="display:flex;flex-direction:column;align-items:center">
+    <div class="r1-card" id="resultCard">
+      <div class="r1-badge">YOUR AI ANXIETY INDEX</div>
+      <div class="r1-score" id="rScore">0</div>
+      <div class="r1-max">/ 100</div>
+      <div class="r1-fig stick-figure" id="rFig"></div>
+      <div class="r1-type" id="rType"></div>
+      <div class="r1-tagline" id="rTagline"></div>
+      <div class="r1-desc" id="rDescCard"></div>
+      <div class="r1-card-brand">测测你的AI焦虑指数 · 加米实验室</div>
+    </div>
+    <div class="share-btns">
+      <button class="s-btn s-btn-pri" id="btnSave">保存图片</button>
+      <button class="s-btn s-btn-sec" id="btnRetry">再测一次</button>
+    </div>
+    <div class="share-foot">加米实验室 Jam Studio · 2026</div>
+  </div>
+</div>
+
 <!-- ========== RESULT: RADAR ========== -->
 <div class="swiper-slide pg-r2" id="pgR2">
   <div class="deco deco-ring" style="width:100px;height:100px;border-color:#1B3409;bottom:10%;right:5%;opacity:.08"></div>
@@ -751,33 +799,8 @@ html,body { height:100%; overflow:hidden;
 <div class="swiper-slide pg-facts" id="pgFacts">
   <div class="content-z">
     <div class="facts-title">🧊 关于AI焦虑，你不知道的冷知识</div>
-    <div style="text-align:center;font-size:13px;opacity:.45;margin-top:-14px;margin-bottom:18px">你焦虑的时候，科学家也没闲着</div>
+    <div style="text-align:center;font-size:13px;opacity:.45;margin-top:-14px;margin-bottom:18px">你在焦虑的时候，学术界也在研究AI焦虑</div>
     <div id="factsContainer"></div>
-  </div>
-</div>
-
-<!-- ========== RESULT: SCORE + SHARE ========== -->
-<div class="swiper-slide pg-r1" id="pgR1">
-  <div class="content-z" style="display:flex;flex-direction:column;align-items:center">
-    <div class="r1-card" id="resultCard">
-      <div class="r1-badge">YOUR AI ANXIETY INDEX</div>
-      <div class="r1-score" id="rScore">0</div>
-      <div class="r1-max">/ 100</div>
-      <div class="r1-fig stick-figure" id="rFig"></div>
-      <div class="r1-type" id="rType"></div>
-      <div class="r1-quote" id="rQuote"></div>
-      <div class="r1-tagline" id="rTagline"></div>
-      <div class="r1-card-brand">测测你的AI焦虑指数 · 加米实验室</div>
-      <div class="r1-qr">
-        <div class="r1-qr-img" id="rQr">替换二维码</div>
-        <div class="r1-qr-text">关注公众号「加米实验室」<br>回复「AI焦虑」获取测试链接</div>
-      </div>
-    </div>
-    <div class="share-btns">
-      <button class="s-btn s-btn-pri" id="btnSave">保存图片</button>
-      <button class="s-btn s-btn-sec" id="btnRetry">再测一次</button>
-    </div>
-    <div class="share-foot">加米实验室 Jam Studio · 2026</div>
   </div>
 </div>
 
@@ -786,6 +809,9 @@ html,body { height:100%; overflow:hidden;
   <div class="deco deco-star" style="font-size:70px;top:10%;right:5%;color:#4E3800">✦</div>
   <div class="content-z">
     <div class="r3-wrap" id="r3Content"></div>
+    <div style="text-align:center;margin-top:24px">
+      <button class="s-btn" style="font-size:13px;padding:10px 24px;background:rgba(78,56,0,.12);color:#4E3800;font-weight:600;" onclick="swiper.slideTo(swiper.slides.length-4,600)">← 回到我的结果</button>
+    </div>
   </div>
 </div>
 
@@ -802,19 +828,18 @@ function setVH(){document.documentElement.style.setProperty('--vh',window.innerH
 setVH(); window.addEventListener('resize',setVH);
 
 // ===== Swipe hint arrows =====
-const skipIds=['pgLoad','pgR1','pgR3'];
-const textIds=['pgR2','pgFacts'];
+const skipIds=['pgLoad','pgR3'];
+const arrow='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6,9 12,15 18,9"/></svg>';
 document.querySelectorAll('.swiper-slide').forEach(sl=>{
   if(skipIds.includes(sl.id)) return;
   if(sl.querySelector('.cover-start')) return;
-  if(sl.querySelector('.share-btns')) return;
+  if(sl.hasAttribute('data-q')) return; // no hint on question slides
   const h=document.createElement('div');
   h.className='swipe-hint';
-  const arrow='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6,9 12,15 18,9"/></svg>';
-  if(textIds.includes(sl.id)){
-    h.innerHTML='<div class="swipe-hint-text">下滑看更多</div>'+arrow;
+  if(sl.id==='pgR1'){
+    h.innerHTML='<div class="swipe-hint-text">查看详细结果分析</div>'+arrow;
   } else {
-    h.innerHTML=arrow;
+    h.innerHTML='<div class="swipe-hint-text">滑动看更多</div>'+arrow;
   }
   sl.appendChild(h);
 });
@@ -844,7 +869,7 @@ const P={
   landed:{name:'已通关玩家',score:20,dims:{R:5,O:8,F:10,I:5,P:5},
     quote:'你跟AI已经是队友了，恭喜通关。',tagline:'AI是工具，我是甲方。',desc:'你已经和AI达成和解了。',color:'#FFA726'}
 };
-const DN={R:'被替代',O:'信息过载',F:'FOMO',I:'身份认同',P:'行动瘫痪'};
+const DN={R:'被替代',O:'信息过载',F:'FOMO(错失焦虑)',I:'身份认同',P:'行动瘫痪'};
 
 // ===== SVG =====
 function mkFig(type,dark){
@@ -973,11 +998,27 @@ document.addEventListener('click',e=>{
   if(!o) return;
   o.closest('[data-q]').querySelectorAll('.q-opt').forEach(x=>x.classList.remove('sel'));
   o.classList.add('sel');
-  setTimeout(()=>swiper.slideNext(),420);
+  setTimeout(()=>{swiper.allowTouchMove=true;swiper.slideNext();},420);
 });
 
 // ===== Loading =====
+function setLoadText(){
+  recalc();
+  const sr=Object.entries(scores).sort((a,b)=>b[1]-a[1]);
+  const top=sr[0][0];
+  const lines={
+    R:['🔍 扫描焦虑因子…','💼 检测到强烈的职业危机感…','🧬 分离焦虑浓度…','✅ 报告生成完毕！'],
+    O:['🔍 扫描焦虑因子…','📚 发现收藏夹已严重超载…','🧬 分离焦虑浓度…','✅ 报告生成完毕！'],
+    F:['🔍 扫描焦虑因子…','🏄 检测到大量未完成的课程…','🧬 分离焦虑浓度…','✅ 报告生成完毕！'],
+    I:['🔍 扫描焦虑因子…','🪞 检测到深夜自我怀疑记录…','🧬 分离焦虑浓度…','✅ 报告生成完毕！'],
+    P:['🔍 扫描焦虑因子…','🛋️ 发现大量「明天再说」标记…','🧬 分离焦虑浓度…','✅ 报告生成完毕！']
+  };
+  const L=lines[top]||lines.O;
+  ['l1','l2','l3','l4'].forEach((id,i)=>{document.getElementById(id).innerHTML=L[i];});
+}
+
 function runLoad(cb){
+  setLoadText();
   const ids=['l1','l2','l3','l4'], bar=document.getElementById('ldBar');
   let i=0;
   function next(){
@@ -996,7 +1037,7 @@ function runLoad(cb){
 function drawRadar(dims){
   const cv=document.getElementById('radarCv'),ctx=cv.getContext('2d');
   const W=cv.width,H=cv.height,cx=W/2,cy=H/2,R=190;
-  const keys=['R','O','F','I','P'],labels=['被替代','信息过载','FOMO','身份认同','行动瘫痪'];
+  const keys=['R','O','F','I','P'],labels=['被替代','信息过载','FOMO(错失焦虑)','身份认同','行动瘫痪'];
   const n=5,mx=50;
   ctx.clearRect(0,0,W,H);
   for(let r=1;r<=4;r++){
@@ -1027,8 +1068,8 @@ function showResults(){
   rKey=getPers();const p=P[rKey];
   document.getElementById('rType').textContent=p.name;
   document.getElementById('rType').style.color=p.color;
-  document.getElementById('rQuote').textContent='「'+p.quote+'」';
   document.getElementById('rTagline').textContent=p.tagline;
+  document.getElementById('rDescCard').textContent=p.desc;
   document.getElementById('rFig').innerHTML=mkFig(rKey,false);
   document.getElementById('rFig').classList.add('draw-in');
   drawRadar(p.dims);
@@ -1076,6 +1117,12 @@ const swiper=new Swiper('#app',{
   on:{
     slideChange(){
       const sl=this.slides[this.activeIndex];
+      // Lock question slides — must pick an option to advance
+      if(sl.hasAttribute('data-q')){
+        this.allowTouchMove=false;
+      } else if(sl.id!=='pgLoad'){
+        this.allowTouchMove=true;
+      }
       if(sl.id==='pgLoad'){
         this.allowTouchMove=false;
         runLoad(()=>{showResults();this.allowTouchMove=true;this.slideNext();});
@@ -1087,11 +1134,73 @@ const swiper=new Swiper('#app',{
   }
 });
 
-// ===== Save =====
+// ===== Tap to advance =====
+document.getElementById('app').addEventListener('click',e=>{
+  // Ignore clicks on buttons, options, links
+  if(e.target.closest('.q-opt,.cover-start,.s-btn,.music-btn,a,button')) return;
+  const sl=swiper.slides[swiper.activeIndex];
+  // Don't tap-advance on question slides or loading
+  if(sl.hasAttribute('data-q')||sl.id==='pgLoad') return;
+  // Don't advance past last slide
+  if(swiper.activeIndex>=swiper.slides.length-1) return;
+  swiper.slideNext();
+});
+
+// ===== Save (3:4 poster 1080x1440) =====
+// Preload QR image for poster
+const qrImg=new Image();
+qrImg.src='qrcode.jpg';
+
 document.getElementById('btnSave').addEventListener('click',()=>{
-  html2canvas(document.getElementById('resultCard'),{scale:3,backgroundColor:'#fff',useCORS:true})
-  .then(cv=>{const l=document.createElement('a');l.download='AI焦虑指数.png';l.href=cv.toDataURL('image/png');l.click();showToast('图片已保存');})
-  .catch(()=>showToast('长按卡片即可保存'));
+  const card=document.getElementById('resultCard');
+  const W=1080,H=1440;
+  html2canvas(card,{scale:4,backgroundColor:null,useCORS:true}).then(src=>{
+    const out=document.createElement('canvas');
+    out.width=W;out.height=H;
+    const ctx=out.getContext('2d');
+    // Match result page gradient background
+    const grad=ctx.createLinearGradient(0,0,W*0.6,H);
+    grad.addColorStop(0,'#667eea');grad.addColorStop(1,'#764ba2');
+    ctx.fillStyle=grad;ctx.fillRect(0,0,W,H);
+    // Card area (leave space at bottom for QR)
+    const cardArea=H-220;
+    const ratio=Math.min((W-160)/src.width,(cardArea-80)/src.height);
+    const dw=src.width*ratio,dh=src.height*ratio;
+    const dx=(W-dw)/2,dy=(cardArea-dh)/2;
+    ctx.shadowColor='rgba(0,0,0,0.2)';ctx.shadowBlur=40;ctx.shadowOffsetY=10;
+    ctx.drawImage(src,dx,dy,dw,dh);
+    // Reset shadow
+    ctx.shadowColor='transparent';ctx.shadowBlur=0;ctx.shadowOffsetY=0;
+    // QR code + text centered at bottom
+    const qrSize=80,qrY=H-160;
+    const txt1='关注「Jam Studio 加米实验室」';
+    const txt2='把焦虑变成行动，从这里开始';
+    ctx.font='500 26px "Noto Sans SC",sans-serif';
+    const tw=Math.max(ctx.measureText(txt1).width,ctx.measureText(txt2).width);
+    const totalW=qrSize+20+tw;
+    const startX=(W-totalW)/2;
+    // Draw QR
+    if(qrImg.complete&&qrImg.naturalWidth){
+      ctx.save();
+      const qrX=startX,qrR=10;
+      ctx.beginPath();ctx.moveTo(qrX+qrR,qrY);ctx.lineTo(qrX+qrSize-qrR,qrY);ctx.quadraticCurveTo(qrX+qrSize,qrY,qrX+qrSize,qrY+qrR);ctx.lineTo(qrX+qrSize,qrY+qrSize-qrR);ctx.quadraticCurveTo(qrX+qrSize,qrY+qrSize,qrX+qrSize-qrR,qrY+qrSize);ctx.lineTo(qrX+qrR,qrY+qrSize);ctx.quadraticCurveTo(qrX,qrY+qrSize,qrX,qrY+qrSize-qrR);ctx.lineTo(qrX,qrY+qrR);ctx.quadraticCurveTo(qrX,qrY,qrX+qrR,qrY);ctx.closePath();ctx.clip();
+      ctx.drawImage(qrImg,qrX,qrY,qrSize,qrSize);
+      ctx.restore();
+    }
+    // Draw text
+    const txX=startX+qrSize+20;
+    ctx.fillStyle='rgba(255,255,255,0.85)';
+    ctx.font='500 26px "Noto Sans SC",sans-serif';
+    ctx.textAlign='left';ctx.textBaseline='middle';
+    ctx.fillText(txt1,txX,qrY+qrSize/2-16);
+    ctx.fillStyle='rgba(255,255,255,0.55)';
+    ctx.font='400 22px "Noto Sans SC",sans-serif';
+    ctx.fillText(txt2,txX,qrY+qrSize/2+16);
+    // Download
+    const l=document.createElement('a');
+    l.download='AI焦虑指数.png';l.href=out.toDataURL('image/png');l.click();
+    showToast('图片已保存');
+  }).catch(()=>showToast('长按卡片即可保存'));
 });
 
 document.getElementById('btnRetry').addEventListener('click',()=>{
@@ -1104,6 +1213,22 @@ document.getElementById('btnRetry').addEventListener('click',()=>{
 });
 
 function showToast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2000);}
+
+// ===== Music =====
+const bgm=document.getElementById('bgm');
+const musicBtn=document.getElementById('musicBtn');
+bgm.volume=0.35;
+
+function startTest(){
+  bgm.play().catch(()=>{});
+  musicBtn.classList.add('visible');
+  swiper.slideNext();
+}
+
+musicBtn.addEventListener('click',()=>{
+  if(bgm.paused){bgm.play();musicBtn.classList.remove('muted');}
+  else{bgm.pause();musicBtn.classList.add('muted');}
+});
 </script>
 </body>
 </html>
