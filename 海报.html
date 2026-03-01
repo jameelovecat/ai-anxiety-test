@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AI焦虑指数测试 - 宣传海报</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  display:flex; justify-content:center; align-items:center;
+  min-height:100vh; background:#1a1a1a;
+  font-family:'Noto Sans SC',-apple-system,'PingFang SC',sans-serif;
+}
+.poster {
+  width:1080px; height:1440px; position:relative; overflow:hidden;
+  background: linear-gradient(155deg, #FAF6F0 0%, #F0E8DA 35%, #E8DCC8 65%, #DED2BE 100%);
+  color: #3D3428;
+}
+
+/* 装饰元素 */
+.deco {
+  position:absolute; pointer-events:none; border-radius:50%;
+}
+.d1 { width:400px; height:400px; background:#D4C4A8; opacity:.15; top:-100px; right:-80px; }
+.d2 { width:240px; height:240px; background:#E8DCC8; opacity:.2; bottom:280px; left:-60px; }
+.d3 { width:160px; height:160px; border:6px solid #3D3428; opacity:.06; top:12%; left:6%; }
+.d4 { width:100px; height:100px; background:#C8B898; opacity:.1; top:45%; right:8%; }
+.d5 { width:300px; height:300px; background:#3D3428; opacity:.03; bottom:-80px; right:-60px; }
+.d6 { width:80px; height:80px; border:4px solid #3D3428; opacity:.06; bottom:35%; left:15%; }
+
+/* 顶部品牌 */
+.brand-top {
+  position:absolute; top:60px; left:80px;
+  font-size:28px; font-weight:500; opacity:.35;
+  letter-spacing:1px;
+}
+
+/* 主标题区 */
+.main-content {
+  position:absolute; top:50%; left:50%; transform:translate(-50%,-52%);
+  text-align:center; width:80%;
+}
+.main-title {
+  font-size:120px; font-weight:900; line-height:1.25;
+  letter-spacing:-3px; margin-bottom:40px;
+}
+.main-sub {
+  font-size:36px; font-weight:400; opacity:.45; line-height:1.7;
+  margin-bottom:70px;
+}
+
+/* 火柴人 */
+.figure {
+  margin:0 auto 60px; width:200px; height:200px;
+}
+
+/* 开始按钮（视觉装饰） */
+.cta {
+  display:inline-flex; align-items:center; gap:14px;
+  padding:28px 64px; border-radius:60px;
+  background:rgba(61,52,40,.08);
+  font-size:36px; font-weight:600; color:#3D3428;
+  letter-spacing:1px;
+}
+
+/* 底部二维码区 */
+.footer {
+  position:absolute; bottom:70px; left:0; right:0;
+  display:flex; align-items:center; justify-content:center; gap:28px;
+}
+.qr {
+  width:140px; height:140px; border-radius:16px; overflow:hidden;
+  flex-shrink:0;
+}
+.qr img { width:100%; height:100%; object-fit:cover; }
+.footer-text {
+  text-align:left;
+}
+.footer-text .ft1 {
+  font-size:30px; font-weight:600; opacity:.6; margin-bottom:8px;
+}
+.footer-text .ft2 {
+  font-size:26px; font-weight:400; opacity:.4;
+}
+</style>
+</head>
+<body>
+<div class="poster">
+  <!-- 装饰 -->
+  <div class="deco d1"></div>
+  <div class="deco d2"></div>
+  <div class="deco d3"></div>
+  <div class="deco d4"></div>
+  <div class="deco d5"></div>
+  <div class="deco d6"></div>
+
+  <!-- 顶部品牌 -->
+  <div class="brand-top">Jam Studio 加米实验室</div>
+
+  <!-- 主内容 -->
+  <div class="main-content">
+    <div class="figure">
+      <svg viewBox="0 0 200 200" fill="none">
+        <!-- 头上感叹号 -->
+        <text x="70" y="22" font-size="18" font-weight="800" fill="#8B7355">!!</text>
+        <text x="115" y="16" font-size="14" fill="#8B7355" opacity=".6">?</text>
+        <!-- 头 -->
+        <circle cx="100" cy="52" r="18" stroke="#3D3428" stroke-width="3" stroke-linecap="round"/>
+        <!-- 眼睛 -->
+        <circle cx="93" cy="50" r="3" fill="#3D3428"/>
+        <circle cx="107" cy="50" r="3" fill="#3D3428"/>
+        <!-- 嘴巴 -->
+        <ellipse cx="100" cy="62" rx="4" ry="4.5" stroke="#3D3428" stroke-width="2" fill="none"/>
+        <!-- 身体 -->
+        <line x1="100" y1="70" x2="100" y2="115" stroke="#3D3428" stroke-width="3" stroke-linecap="round"/>
+        <!-- 手臂 - 举起 -->
+        <line x1="100" y1="85" x2="68" y2="72" stroke="#3D3428" stroke-width="3" stroke-linecap="round"/>
+        <line x1="100" y1="85" x2="132" y2="72" stroke="#3D3428" stroke-width="3" stroke-linecap="round"/>
+        <!-- 手上的手机 -->
+        <rect x="125" y="58" width="18" height="28" rx="4" fill="#8B7355"/>
+        <!-- 手机光 -->
+        <circle cx="134" cy="72" r="20" fill="#8B7355" opacity=".06"/>
+        <!-- 腿 -->
+        <line x1="100" y1="115" x2="78" y2="142" stroke="#3D3428" stroke-width="3" stroke-linecap="round"/>
+        <line x1="78" y1="142" x2="70" y2="162" stroke="#3D3428" stroke-width="3" stroke-linecap="round"/>
+        <line x1="100" y1="115" x2="122" y2="142" stroke="#3D3428" stroke-width="3" stroke-linecap="round"/>
+        <line x1="122" y1="142" x2="130" y2="162" stroke="#3D3428" stroke-width="3" stroke-linecap="round"/>
+      </svg>
+    </div>
+
+    <div class="main-title">你的AI焦虑<br>还好吗？</div>
+    <div class="main-sub">8道题 · 1分钟 · 测出你的AI焦虑类型</div>
+    <div class="cta">扫码开始测试 ↗</div>
+  </div>
+
+  <!-- 底部二维码 -->
+  <div class="footer">
+    <div class="qr"><img src="qrcode.jpg" alt="QR"></div>
+    <div class="footer-text">
+      <div class="ft1">关注「Jam Studio 加米实验室」</div>
+      <div class="ft2">回复「AI焦虑」获取测试链接</div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

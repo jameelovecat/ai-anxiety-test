@@ -67,6 +67,7 @@ html,body { height:100%; overflow:hidden;
 .swipe-hint svg { width:24px; height:24px; }
 .swipe-hint-text { font-size:11px; letter-spacing:.5px; margin-bottom:2px; }
 .pg-r1 .swipe-hint, .pg-r2 .swipe-hint { color:#fff; opacity:.4; }
+.pg-r1 .swipe-hint { bottom: calc(84px + env(safe-area-inset-bottom,0px)); }
 @keyframes hintBounce {
   0%,100% { transform:translateY(0); }
   50% { transform:translateY(5px); }
@@ -1097,16 +1098,27 @@ function showResults(){
   // R3 dynamic content
   const ref=`<div class="r3-ref"><div style="font-weight:600;margin-bottom:4px;opacity:.4">References</div>[1] Hajek, A. et al. (2025). Translation and validation of the artificial intelligence anxiety scale in German. <i>PLOS One</i>, 20(10), e0333073.<br>[2] Wang, Y. &amp; Wang, Y. (2019). Development and validation of an artificial intelligence anxiety scale. <i>Interactive Learning Environments</i>, 30(4), 619–634.<br>[3] Pew Research Center (2025). AI and the Future of Workers. Survey of 5,273 U.S. adults.</div>`;
   let r3='<div class="r3-quot">"</div>';
-  if(rKey==='landed'||rKey==='zen'){
-    r3+=`<p>你已经跑在大多数人前面了。</p>`;
-    r3+=`<p>但你身边一定有人还在焦虑，<br>不知道从哪开始，不敢迈出第一步。</p>`;
-    r3+=`<p class="bold">把这个测试分享给 TA，<br>有时候「你不是一个人」<br>就是最好的安慰。</p>`;
-  } else {
-    r3+=`<p>看到这里，深呼吸一下。</p>`;
-    r3+=`<p>焦虑说明你在乎，在乎说明你没放弃。<br>这本身就很了不起。</p>`;
-    r3+=`<p class="bold">焦虑的反面不是「不焦虑」，<br>是「开始做」。</p>`;
-    r3+=`<p>不用学完所有课程，不用下载所有 App。<br>找到一件 AI 能帮你的小事，<br>先做起来就好。</p>`;
-  }
+  const msgs={
+    collector:`<p>你收藏的不是教程，是「未来更好的自己」。</p>
+      <p>每一次点击收藏，都是在说：我还想变得更好。<br>这份期待本身，就说明你没有放弃。</p>
+      <p class="bold">今天随便打开一个，看5分钟就够了。<br>不用从头学，从任何一个点开始都行。</p>`,
+    midnight:`<p>凌晨两点还在刷AI新闻的人，<br>不是因为闲，是因为在乎。</p>
+      <p>在乎自己会不会被落下，<br>在乎明天还有没有自己的位置。<br>怕被抛下的人，其实一直在往前走。</p>
+      <p class="bold">早点睡，明天的焦虑明天再说。<br>你比你以为的跑得快。</p>`,
+    fomo:`<p>你不是没有方向，<br>你是方向太多，哪个都不想错过。</p>
+      <p>这说明你对世界充满好奇，<br>这是很稀缺的品质。<br>追浪的人，至少没有站在岸上不动。</p>
+      <p class="bold">挑一个最感兴趣的，先冲它30天试试。<br>追一个浪，比看十个浪有用。</p>`,
+    zen:`<p>你不是不在乎，<br>你是在用自己的节奏消化这一切。</p>
+      <p>有人冲浪，有人观潮，<br>都是面对大海的方式。<br>不是所有人都需要冲在最前面。</p>
+      <p class="bold">等哪天好奇了，随手试一下就行。<br>不急，你的节奏就是最好的节奏。</p>`,
+    existential:`<p>别人在学工具，你在想意义——<br>这不是矫情，是深度。</p>
+      <p>能问出「我是谁」的人，<br>比只会问「怎么用」的人走得更远。<br>你的焦虑里，藏着别人没有的思考力。</p>
+      <p class="bold">不过想归想，也可以边想边试。<br>用着用着，答案可能自己就冒出来了。</p>`,
+    landed:`<p>你已经穿过了那层焦虑，到了另一边。</p>
+      <p>AI对你来说不是威胁，是顺手的工具。<br>但你一定还记得，焦虑的时候是什么感觉。</p>
+      <p class="bold">把这个测试分享给还在焦虑的人，<br>让TA知道——这条路走得通，会好的。</p>`
+  };
+  r3+=msgs[rKey]||msgs.collector;
   r3+=ref;
   document.getElementById('r3Content').innerHTML=r3;
 }
