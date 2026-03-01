@@ -1,0 +1,1109 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>测测你的AI焦虑指数</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+<style>
+:root { --vh: 1vh; }
+* { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+html,body { height:100%; overflow:hidden;
+  font-family:'Noto Sans SC',-apple-system,'PingFang SC',sans-serif;
+  -webkit-font-smoothing:antialiased;
+}
+
+.swiper { width:100%; height:100%; }
+.swiper-slide {
+  height: calc(var(--vh,1vh)*100);
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  padding: calc(20px + env(safe-area-inset-top,0px)) 28px calc(20px + env(safe-area-inset-bottom,0px));
+  position:relative; overflow:hidden;
+}
+
+/* ===== Decorative Shapes ===== */
+.deco {
+  position:absolute; pointer-events:none; z-index:0;
+}
+.deco-circle {
+  border-radius:50%; opacity:.12;
+}
+.deco-ring {
+  border-radius:50%; border:3px solid; opacity:.15;
+}
+.deco-squiggle {
+  opacity:.12;
+}
+.deco-star {
+  font-weight:900; opacity:.1;
+}
+.content-z { position:relative; z-index:1; width:100%; max-width:360px; }
+
+/* ===== Watermark ===== */
+.watermark {
+  position:absolute; top: calc(12px + env(safe-area-inset-top,0px)); right:16px;
+  z-index:2; text-align:right;
+  font-size:9px; font-weight:500; line-height:1.6;
+  opacity:.25; pointer-events:none;
+}
+.watermark-bottom {
+  position:absolute; bottom: calc(16px + env(safe-area-inset-bottom,0px));
+  left:0; right:0; z-index:2; text-align:center;
+  font-size:10px; font-weight:500;
+  opacity:.2; pointer-events:none;
+}
+
+/* ===== Swipe hint arrow ===== */
+.swipe-hint {
+  position:absolute; bottom: calc(14px + env(safe-area-inset-bottom,0px));
+  left:0; right:0; z-index:2; text-align:center;
+  pointer-events:none; opacity:.2;
+  animation: hintBounce 2s ease-in-out infinite;
+}
+.swipe-hint svg { width:24px; height:24px; }
+.swipe-hint-text { font-size:11px; letter-spacing:.5px; margin-bottom:2px; }
+@keyframes hintBounce {
+  0%,100% { transform:translateY(0); }
+  50% { transform:translateY(5px); }
+}
+
+/* ===== COVER ===== */
+.pg-cover {
+  background: linear-gradient(155deg, #FFE0B2 0%, #FFAB91 40%, #FF8A65 100%);
+  color: #4E2A00;
+  text-align: center;
+}
+.cover-emoji { font-size: 64px; margin-bottom: 20px; line-height:1; }
+.cover-title {
+  font-size: clamp(36px,10vw,48px); font-weight:900;
+  line-height:1.3; letter-spacing:-1px; margin-bottom:12px;
+}
+.cover-sub {
+  font-size:15px; font-weight:400; opacity:.55; line-height:1.6; margin-bottom:40px;
+}
+.cover-start {
+  display:inline-flex; align-items:center; gap:8px;
+  padding:14px 32px; border-radius:50px;
+  background:rgba(78,42,0,.12); border:none;
+  font-size:15px; font-weight:600; color:#4E2A00;
+  cursor:pointer; transition: all .3s ease;
+}
+.cover-start:active { transform:scale(.96); }
+.cover-start .arrow {
+  display:inline-block; animation: bounceDown 1.8s ease-in-out infinite;
+}
+@keyframes bounceDown {
+  0%,100% { transform:translateY(0); }
+  50% { transform:translateY(4px); }
+}
+
+/* ===== NARRATIVE ===== */
+.pg-nar1 {
+  background: linear-gradient(165deg, #E1BEE7 0%, #CE93D8 50%, #BA68C8 100%);
+  color: #3E1050; text-align:left;
+}
+.pg-nar2 {
+  background: linear-gradient(165deg, #B2EBF2 0%, #80DEEA 50%, #4DD0E1 100%);
+  color: #004D5A; text-align:left;
+}
+.nar-big {
+  font-size: clamp(22px,6.5vw,28px); font-weight:700;
+  line-height:1.9;
+}
+.nar-small {
+  font-size: clamp(15px,4vw,17px); font-weight:400;
+  line-height:2; margin-top:20px;
+}
+.nar-hl {
+  display:inline; padding:2px 8px; border-radius:6px;
+  background:rgba(255,255,255,.3); font-weight:700;
+}
+.nar-dim { opacity:.4; }
+.nar-emoji { font-size:40px; margin-bottom:16px; display:block; }
+.pg-nar1 .content-z, .pg-nar2 .content-z { padding-bottom:60px; }
+
+/* ===== QUESTIONS ===== */
+.pg-q {
+  text-align:left; justify-content:flex-start;
+  padding-top: calc(48px + env(safe-area-inset-top,0px));
+}
+.pg-q0 { background: #FFF8E1; color: #5D4037; }
+.pg-q1 { background: #F3E5F5; color: #4A148C; }
+.pg-q2 { background: #E8F5E9; color: #1B5E20; }
+.pg-q3 { background: #FBE9E7; color: #BF360C; }
+.pg-q4 { background: #E0F7FA; color: #006064; }
+.pg-q5 { background: #FFF3E0; color: #E65100; }
+.pg-q6 { background: #EDE7F6; color: #311B92; }
+.pg-q7 { background: #FCE4EC; color: #880E4F; }
+
+.q-top {
+  width:100%; display:flex; justify-content:space-between;
+  align-items:center; margin-bottom:24px;
+}
+.q-num {
+  font-family:'Space Grotesk',monospace;
+  font-size: clamp(40px,11vw,52px); font-weight:700;
+  opacity:.1; line-height:1;
+}
+.q-of {
+  font-family:'Space Grotesk',monospace;
+  font-size:13px; font-weight:500; opacity:.3;
+}
+.q-bar {
+  width:100%; height:4px; border-radius:2px;
+  background:rgba(0,0,0,.06); margin-bottom:24px; overflow:hidden;
+}
+.q-bar-fill {
+  height:100%; border-radius:2px;
+  background:currentColor; opacity:.35;
+  transition: width .5s cubic-bezier(.4,0,.2,1);
+}
+.q-title {
+  font-size: clamp(18px,5vw,22px); font-weight:700;
+  line-height:1.7; margin-bottom:28px;
+}
+.q-opts { width:100%; display:flex; flex-direction:column; gap:11px; }
+.q-opt {
+  width:100%; padding:16px 20px; border-radius:14px;
+  background:rgba(255,255,255,.55); backdrop-filter:blur(4px);
+  border:2px solid transparent;
+  font-size:14.5px; font-weight:500; line-height:1.5;
+  cursor:pointer; position:relative;
+  transition: all .3s cubic-bezier(.4,0,.2,1);
+}
+.q-opt:active { transform:scale(.98); }
+.q-opt.sel {
+  background:rgba(255,255,255,.95);
+  border-color:currentColor;
+  transform:scale(1.01);
+  box-shadow: 0 4px 20px rgba(0,0,0,.08);
+}
+.q-opt .check-dot {
+  display:inline-flex; width:22px; height:22px;
+  border-radius:50%; border:2px solid rgba(0,0,0,.12);
+  align-items:center; justify-content:center;
+  margin-right:12px; font-size:12px; font-weight:700;
+  transition: all .3s cubic-bezier(.34,1.56,.64,1);
+  vertical-align:middle; flex-shrink:0; color:transparent;
+  float:left; margin-top:1px;
+}
+.q-opt.sel .check-dot {
+  background:currentColor; border-color:currentColor;
+  color:#fff; transform:scale(1.1);
+}
+
+/* ===== LOADING ===== */
+.pg-loading {
+  background: linear-gradient(165deg, #FFD54F 0%, #FFB74D 50%, #FF9800 100%);
+  color: #4E2700; text-align:center;
+}
+.ld-emoji { font-size:56px; margin-bottom:24px; }
+.ld-title { font-size:20px; font-weight:700; margin-bottom:32px; }
+.ld-steps { text-align:left; max-width:260px; }
+.ld-step {
+  font-size:14px; line-height:1.5; padding:6px 0;
+  opacity:0; transform:translateX(-10px);
+  transition: all .4s ease;
+}
+.ld-step.on { opacity:.6; transform:translateX(0); }
+.ld-step.done { opacity:1; font-weight:600; }
+.ld-step .ico { margin-right:8px; }
+.ld-bar {
+  width:100%; max-width:260px; height:6px; border-radius:3px;
+  background:rgba(0,0,0,.08); margin-top:28px; overflow:hidden;
+}
+.ld-bar-fill {
+  height:100%; border-radius:3px; width:0%;
+  background:#4E2700;
+  transition: width .5s ease;
+}
+
+/* ===== RESULT 1: SCORE ===== */
+.pg-r1 {
+  background: linear-gradient(165deg, #667eea 0%, #764ba2 100%);
+  color: #4A0020; text-align:center;
+}
+.r1-card {
+  width:100%; max-width:300px; background:#fff;
+  border-radius:20px; padding:28px 24px 24px;
+  box-shadow: 0 8px 40px rgba(0,0,0,.15);
+  text-align:center; color:#2d2216; position:relative;
+  overflow:hidden;
+}
+.r1-card::before {
+  content:''; position:absolute; top:0; left:0; right:0;
+  height:5px;
+  background: linear-gradient(90deg,#FF8A65,#CE93D8,#4DD0E1,#FFD54F,#EC407A);
+}
+.r1-badge {
+  display:inline-block; padding:6px 16px; border-radius:20px;
+  background:rgba(0,0,0,.04); font-size:10px;
+  font-weight:600; letter-spacing:2px; margin-bottom:12px;
+  color:#666;
+}
+.r1-score {
+  font-family:'Space Grotesk',monospace;
+  font-size: clamp(72px,20vw,96px); font-weight:700;
+  line-height:1; letter-spacing:-3px;
+  color:#2d2216;
+}
+.r1-max {
+  font-family:'Space Grotesk',monospace;
+  font-size:14px; opacity:.2; margin-bottom:10px;
+}
+.r1-fig {
+  width: clamp(120px,34vw,150px);
+  height: clamp(120px,34vw,150px);
+  margin:4px auto 10px;
+}
+.r1-type {
+  font-size: clamp(22px,6vw,28px); font-weight:900;
+  margin-bottom:6px;
+}
+.r1-quote {
+  font-size:12.5px; font-weight:400; line-height:1.7;
+  opacity:.4; max-width:240px; margin:0 auto;
+}
+.r1-tagline {
+  font-size:13px; font-weight:700; line-height:1.6;
+  margin-top:10px; padding:0 8px; color:#2d2216;
+}
+.r1-card-brand {
+  margin-top:14px; padding-top:12px;
+  border-top:1px solid rgba(0,0,0,.06);
+  font-size:10px; letter-spacing:1px; opacity:.2; font-weight:500;
+}
+.r1-qr {
+  display:flex; align-items:center; gap:10px;
+  margin-top:14px; padding-top:14px;
+  border-top:1px solid rgba(0,0,0,.06);
+}
+.r1-qr-img {
+  width:48px; height:48px; border-radius:6px; background:#f5f5f5;
+  flex-shrink:0; display:flex; align-items:center; justify-content:center;
+  font-size:7px; color:#999; text-align:center; overflow:hidden;
+}
+.r1-qr-img img { width:100%; height:100%; object-fit:cover; border-radius:6px; }
+.r1-qr-text { font-size:9px; line-height:1.5; opacity:.4; text-align:left; }
+.pg-r1 .share-btns { margin-top:20px; }
+.pg-r1 .share-foot { color:rgba(255,255,255,.25); }
+
+/* ===== FACTS PAGE ===== */
+.pg-facts {
+  background: linear-gradient(165deg, #E3F2FD 0%, #BBDEFB 50%, #90CAF9 100%);
+  color: #0D2137; text-align:left;
+  justify-content:flex-start;
+  padding-top: calc(48px + env(safe-area-inset-top,0px));
+}
+.facts-title {
+  font-size:18px; font-weight:700; margin-bottom:20px; text-align:center;
+}
+.fact-card {
+  width:100%; padding:14px 16px; border-radius:14px;
+  background:rgba(255,255,255,.6); backdrop-filter:blur(4px);
+  margin-bottom:10px;
+  display:flex; gap:12px; align-items:flex-start;
+}
+.fact-num {
+  font-family:'Space Grotesk',monospace;
+  font-size:28px; font-weight:700; opacity:.12; line-height:1; flex-shrink:0;
+  min-width:32px;
+}
+.fact-body { flex:1; }
+.fact-text {
+  font-size:13.5px; font-weight:500; line-height:1.7;
+}
+.fact-src {
+  font-size:10px; opacity:.3; margin-top:4px;
+}
+.fact-hl { font-weight:700; }
+
+/* ===== RESULT 2: RADAR ===== */
+.pg-r2 {
+  background: linear-gradient(165deg, #DCEDC8 0%, #AED581 50%, #8BC34A 100%);
+  color: #1B3409; text-align:center;
+}
+.r2-title {
+  font-size:20px; font-weight:700; margin-bottom:16px;
+}
+.r2-canvas-wrap {
+  width: clamp(230px,62vw,270px);
+  height: clamp(230px,62vw,270px);
+  margin:0 auto 20px;
+  background:rgba(255,255,255,.25); border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  padding:8px;
+}
+.r2-canvas { width:100%; height:100%; }
+.r2-desc {
+  font-size:14px; line-height:1.9; opacity:.7; max-width:290px; margin:0 auto;
+}
+.r2-desc .hl { font-weight:700; opacity:1; }
+
+/* ===== RESULT 3: JAMEE ===== */
+.pg-r3 {
+  background: linear-gradient(165deg, #FFF8E1 0%, #FFECB3 50%, #FFE082 100%);
+  color: #4E3800; text-align:left;
+}
+.r3-wrap { max-width:300px; }
+.r3-quot { font-size:52px; font-weight:900; line-height:1; opacity:.12; margin-bottom:8px; }
+.r3-wrap p { font-size:15px; line-height:2.1; margin-bottom:16px; }
+.r3-wrap .bold { font-weight:700; font-size:16px; }
+.r3-sig {
+  margin-top:28px; padding-top:16px;
+  border-top:2px solid rgba(78,56,0,.08);
+  text-align:right;
+}
+.r3-sig .name { font-size:14px; font-weight:700; }
+.r3-sig .tag { font-size:12px; opacity:.35; margin-top:2px; }
+.r3-ref {
+  margin-top:16px; font-size:10px; opacity:.2; line-height:1.5;
+}
+.r3-wrap strong { font-weight:700; }
+
+/* ===== SHARE ===== */
+.pg-share {
+  background: linear-gradient(165deg, #667eea 0%, #764ba2 100%);
+  color: #2d1b4e; text-align:center;
+}
+.share-card {
+  width:100%; max-width:280px; background:#fff;
+  border-radius:20px; padding:32px 24px 24px;
+  box-shadow: 0 8px 40px rgba(0,0,0,.12);
+  text-align:center; color:#2d2216; position:relative;
+  overflow:hidden; margin-bottom:24px;
+}
+.share-card::before {
+  content:''; position:absolute; top:0; left:0; right:0;
+  height:5px;
+  background: linear-gradient(90deg,#FF8A65,#CE93D8,#4DD0E1,#FFD54F,#EC407A);
+}
+.sc-label { font-size:10px; font-weight:600; letter-spacing:2px; opacity:.3; margin-bottom:10px; }
+.sc-score {
+  font-family:'Space Grotesk',monospace;
+  font-size:52px; font-weight:700; line-height:1; letter-spacing:-2px;
+}
+.sc-max { font-family:'Space Grotesk',monospace; font-size:12px; opacity:.2; margin-bottom:8px; }
+.sc-fig { width:120px; height:120px; margin:4px auto 10px; }
+.sc-type { font-size:20px; font-weight:900; margin-bottom:6px; }
+.sc-quote { font-size:11.5px; font-weight:400; opacity:.4; line-height:1.6; padding:0 8px; }
+.sc-tagline { font-size:14px; font-weight:700; line-height:1.6; margin-top:10px; padding:0 4px; color:#2d2216; }
+.sc-div { width:100%; height:1px; background:rgba(0,0,0,.06); margin:16px 0 12px; }
+.sc-brand { font-size:10px; letter-spacing:1px; opacity:.2; font-weight:500; }
+.sc-qr { display:flex; align-items:center; gap:10px; margin-top:14px; padding-top:14px; border-top:1px solid rgba(0,0,0,.06); }
+.sc-qr-img { width:48px; height:48px; border-radius:6px; background:#f5f5f5; flex-shrink:0; display:flex; align-items:center; justify-content:center; font-size:7px; color:#999; text-align:center; overflow:hidden; }
+.sc-qr-img img { width:100%; height:100%; object-fit:cover; border-radius:6px; }
+.sc-qr-text { font-size:9px; line-height:1.5; opacity:.4; text-align:left; }
+
+.share-btns { display:flex; gap:12px; width:100%; max-width:280px; }
+.s-btn {
+  flex:1; padding:15px 0; border-radius:14px; border:none;
+  font-size:14px; font-weight:600; cursor:pointer;
+  transition: all .3s ease;
+}
+.s-btn:active { transform:scale(.97); }
+.s-btn-pri { background:#fff; color:#4A0020; box-shadow:0 4px 16px rgba(0,0,0,.1); }
+.s-btn-sec { background:rgba(255,255,255,.2); color:#fff; }
+.share-foot { margin-top:16px; font-size:11px; opacity:.25; }
+
+/* ===== QR Code Section ===== */
+.qr-section {
+  display:flex; align-items:center; gap:12px;
+  margin-top:16px; padding:12px 16px;
+  background:rgba(255,255,255,.1); border-radius:12px;
+  backdrop-filter:blur(4px); width:100%; max-width:280px;
+}
+.qr-placeholder {
+  width:64px; height:64px; border-radius:8px;
+  background:#fff; flex-shrink:0;
+  display:flex; align-items:center; justify-content:center;
+  font-size:9px; color:#999; text-align:center; line-height:1.3;
+  overflow:hidden;
+}
+.qr-placeholder img { width:100%; height:100%; object-fit:cover; border-radius:8px; }
+.qr-text {
+  font-size:11px; line-height:1.6; text-align:left;
+}
+.qr-text .qr-keyword {
+  display:inline-block; padding:2px 8px; border-radius:4px;
+  background:rgba(255,255,255,.2); font-weight:700; margin:2px 0;
+}
+/* Small QR variant */
+.qr-sm { margin-top:12px; padding:8px 12px; max-width:200px; opacity:.7; }
+.qr-sm .qr-placeholder { width:40px; height:40px; }
+.qr-sm .qr-text { font-size:10px; line-height:1.4; }
+/* R1 dark bg QR */
+.pg-r1 .qr-section { background:rgba(255,255,255,.06); }
+.pg-r1 .qr-text { color:rgba(255,255,255,.7); }
+
+/* ===== SVG figures ===== */
+.stick-figure svg { width:100%; height:100%; display:block; }
+
+/* draw animation */
+.draw-in line, .draw-in path.bd, .draw-in circle.hd {
+  stroke-dasharray:500; stroke-dashoffset:500;
+  animation: drawL 1s ease forwards;
+}
+.draw-in .eye-el { opacity:0; animation: popIn .3s ease .7s forwards; }
+.draw-in .mouth-el { opacity:0; animation: popIn .3s ease .8s forwards; }
+.draw-in .prop-el { opacity:0; animation: popIn .4s cubic-bezier(.34,1.56,.64,1) .6s forwards; }
+.draw-in .float-el { opacity:0; animation: floatUp .5s ease .9s forwards; }
+@keyframes drawL { to { stroke-dashoffset:0; } }
+@keyframes popIn { 0%{opacity:0;transform:scale(.3)} 100%{opacity:1;transform:scale(1)} }
+@keyframes floatUp { 0%{opacity:0;transform:translateY(8px)} 100%{opacity:1;transform:translateY(0)} }
+@keyframes bob { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-3px)} }
+.bob { animation: bob 3s ease-in-out infinite; }
+
+/* ===== Toast ===== */
+.toast {
+  position:fixed; top:50%; left:50%;
+  transform:translate(-50%,-50%) scale(.9);
+  background:rgba(0,0,0,.75); color:#fff;
+  padding:14px 28px; border-radius:12px;
+  font-size:14px; font-weight:500; z-index:999;
+  opacity:0; transition: all .3s ease; pointer-events:none;
+  backdrop-filter:blur(8px);
+}
+.toast.show { opacity:1; transform:translate(-50%,-50%) scale(1); }
+
+/* ===== Responsive ===== */
+@media(max-height:700px) {
+  .cover-emoji { font-size:48px; margin-bottom:12px; }
+  .cover-title { font-size:32px; }
+  .r1-fig { width:110px; height:110px; }
+  .r1-card { padding:22px 20px 20px; }
+  .q-opts { gap:9px; }
+  .q-opt { padding:13px 16px; font-size:13.5px; }
+  .q-title { font-size:17px; margin-bottom:20px; }
+  .nar-big { font-size:22px; }
+  .r3-wrap p { font-size:13.5px; line-height:1.9; margin-bottom:12px; }
+}
+@media(max-height:600px) {
+  .r1-score { font-size:60px; }
+  .r1-fig { width:90px; height:90px; }
+  .r3-wrap p { font-size:12.5px; line-height:1.8; margin-bottom:10px; }
+}
+
+/* ===== Desktop: phone frame ===== */
+@media (min-width: 768px) {
+  html, body {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .swiper {
+    width: 390px; height: 844px;
+    max-height: 90vh;
+    border-radius: 40px;
+    box-shadow: 0 0 0 12px #1a1a1a,
+                0 0 0 14px #333,
+                0 20px 60px rgba(0,0,0,.5);
+    overflow: hidden;
+  }
+}
+</style>
+</head>
+<body>
+
+<div class="swiper" id="app">
+<div class="swiper-wrapper">
+
+<!-- ========== COVER ========== -->
+<div class="swiper-slide pg-cover">
+  <div class="deco deco-circle" style="width:200px;height:200px;background:#FF7043;top:-60px;right:-50px"></div>
+  <div class="deco deco-circle" style="width:120px;height:120px;background:#FFE0B2;bottom:60px;left:-30px;opacity:.2"></div>
+  <div class="deco deco-ring" style="width:80px;height:80px;border-color:#4E2A00;top:15%;left:8%"></div>
+  <div class="deco deco-ring" style="width:50px;height:50px;border-color:#4E2A00;bottom:25%;right:10%"></div>
+  <div class="deco deco-star" style="font-size:60px;top:18%;right:15%;color:#4E2A00">✦</div>
+  <div class="deco deco-star" style="font-size:30px;bottom:30%;left:12%;color:#4E2A00">✦</div>
+  <div class="content-z">
+    <div class="cover-emoji">🤯</div>
+    <div class="cover-title">你的AI焦虑<br>还好吗？</div>
+    <div class="cover-sub">基于 AI 焦虑学术研究 & Pew Research 数据<br>8道题，1分钟，测完可能更焦虑</div>
+    <button class="cover-start" onclick="swiper.slideNext()">
+      开始测试 <span class="arrow">↓</span>
+    </button>
+  </div>
+</div>
+
+<!-- ========== NARRATIVE 1 ========== -->
+<div class="swiper-slide pg-nar1">
+  <div class="deco deco-circle" style="width:180px;height:180px;background:#9C27B0;top:-40px;left:-50px"></div>
+  <div class="deco deco-ring" style="width:100px;height:100px;border-color:#3E1050;bottom:20%;right:5%"></div>
+  <div class="deco deco-star" style="font-size:80px;bottom:10%;right:5%;color:#3E1050">✦</div>
+  <div class="content-z">
+    <div class="nar-emoji">📱</div>
+    <div class="nar-big">
+      过去这一年<br>
+      你下载了几个 AI App？<br>
+      收藏了多少<br>
+      <span class="nar-hl">"AI必学"</span> 的帖子？
+    </div>
+    <div class="nar-small nar-dim">
+      凌晨几点因为一条AI新闻失眠过？
+    </div>
+  </div>
+</div>
+
+<!-- ========== NARRATIVE 2 ========== -->
+<div class="swiper-slide pg-nar2">
+  <div class="deco deco-circle" style="width:160px;height:160px;background:#00ACC1;bottom:-40px;right:-40px"></div>
+  <div class="deco deco-ring" style="width:70px;height:70px;border-color:#004D5A;top:15%;left:6%"></div>
+  <div class="content-z">
+    <div class="nar-emoji">🔬</div>
+    <div class="nar-big">
+      收集了上千条<br>
+      <span class="nar-hl">「AI焦虑」</span>真实心声<br>
+      提炼成这份测试
+    </div>
+    <div class="nar-small">
+      <span class="nar-dim">不诊断，不治病</span><br>
+      只帮你看清，<br>
+      你到底在焦虑什么 🎯
+    </div>
+  </div>
+</div>
+
+<!-- ========== Q1 ========== -->
+<div class="swiper-slide pg-q pg-q0" data-q="0">
+  <div class="deco deco-circle" style="width:140px;height:140px;background:#FFD54F;top:-30px;right:-40px;opacity:.2"></div>
+  <div class="content-z">
+    <div class="q-top">
+      <div class="q-num">01</div>
+      <div class="q-of">1 / 8</div>
+    </div>
+    <div class="q-bar"><div class="q-bar-fill" style="width:12.5%"></div></div>
+    <div class="q-title">周一早上看到一条新闻：「AI已经能做XX了」，你的第一反应？ 😰</div>
+    <div class="q-opts">
+      <div class="q-opt" data-s='{"F":2}'><span class="check-dot">✓</span>马上搜「怎么用」</div>
+      <div class="q-opt" data-s='{"P":2}'><span class="check-dot">✓</span>默默关掉，假装没看见</div>
+      <div class="q-opt" data-s='{"R":2}'><span class="check-dot">✓</span>转发朋友圈配文「完了」</div>
+      <div class="q-opt" data-s='{}'><span class="check-dot">✓</span>点进去看完，也就那样</div>
+    </div>
+  </div>
+</div>
+
+<!-- ========== Q2 ========== -->
+<div class="swiper-slide pg-q pg-q1" data-q="1">
+  <div class="deco deco-circle" style="width:120px;height:120px;background:#CE93D8;bottom:-20px;left:-30px;opacity:.15"></div>
+  <div class="content-z">
+    <div class="q-top">
+      <div class="q-num">02</div>
+      <div class="q-of">2 / 8</div>
+    </div>
+    <div class="q-bar"><div class="q-bar-fill" style="width:25%"></div></div>
+    <div class="q-title">同事用AI 20分钟搞定了你要做一天的方案 💀</div>
+    <div class="q-opts">
+      <div class="q-opt" data-s='{"F":2}'><span class="check-dot">✓</span>当场问他用的啥工具</div>
+      <div class="q-opt" data-s='{"F":1,"I":1}'><span class="check-dot">✓</span>表面淡定，回家偷偷搜</div>
+      <div class="q-opt" data-s='{"R":2}'><span class="check-dot">✓</span>开始认真考虑转行</div>
+      <div class="q-opt" data-s='{}'><span class="check-dot">✓</span>太好了，抄一份给老板</div>
+    </div>
+  </div>
+</div>
+
+<!-- ========== Q3 ========== -->
+<div class="swiper-slide pg-q pg-q2" data-q="2">
+  <div class="deco deco-ring" style="width:90px;height:90px;border-color:#1B5E20;top:12%;right:8%;opacity:.1"></div>
+  <div class="content-z">
+    <div class="q-top">
+      <div class="q-num">03</div>
+      <div class="q-of">3 / 8</div>
+    </div>
+    <div class="q-bar"><div class="q-bar-fill" style="width:37.5%"></div></div>
+    <div class="q-title">你手机里有几个AI App？ 📲</div>
+    <div class="q-opts">
+      <div class="q-opt" data-s='{"P":2}'><span class="check-dot">✓</span>0个，在等它们证明自己</div>
+      <div class="q-opt" data-s='{}'><span class="check-dot">✓</span>1-2个，够用就行</div>
+      <div class="q-opt" data-s='{"O":2}'><span class="check-dot">✓</span>5个以上，常用的只有1个</div>
+      <div class="q-opt" data-s='{"O":1,"P":1}'><span class="check-dot">✓</span>10个以上，大部分没打开过第二次</div>
+    </div>
+  </div>
+</div>
+
+<!-- ========== Q4 ========== -->
+<div class="swiper-slide pg-q pg-q3" data-q="3">
+  <div class="deco deco-star" style="font-size:50px;bottom:15%;right:8%;color:#BF360C">✦</div>
+  <div class="content-z">
+    <div class="q-top">
+      <div class="q-num">04</div>
+      <div class="q-of">4 / 8</div>
+    </div>
+    <div class="q-bar"><div class="q-bar-fill" style="width:50%"></div></div>
+    <div class="q-title">深夜刷到「35岁被裁，AI是主因」🌙</div>
+    <div class="q-opts">
+      <div class="q-opt" data-s='{"R":2}'><span class="check-dot">✓</span>算了算自己离35还有几年</div>
+      <div class="q-opt" data-s='{"P":2}'><span class="check-dot">✓</span>打开学习App，学了5分钟关了</div>
+      <div class="q-opt" data-s='{"R":1,"I":1}'><span class="check-dot">✓</span>跟朋友吐槽到凌晨2点</div>
+      <div class="q-opt" data-s='{}'><span class="check-dot">✓</span>翻个身继续睡</div>
+    </div>
+  </div>
+</div>
+
+<!-- ========== Q5 ========== -->
+<div class="swiper-slide pg-q pg-q4" data-q="4">
+  <div class="deco deco-circle" style="width:100px;height:100px;background:#00ACC1;top:-20px;left:-25px;opacity:.1"></div>
+  <div class="content-z">
+    <div class="q-top">
+      <div class="q-num">05</div>
+      <div class="q-of">5 / 8</div>
+    </div>
+    <div class="q-bar"><div class="q-bar-fill" style="width:62.5%"></div></div>
+    <div class="q-title">有人说「你应该学学AI」，内心真实反应？ 🫠</div>
+    <div class="q-opts">
+      <div class="q-opt" data-s='{"P":2}'><span class="check-dot">✓</span>我知道啊！但从哪开始？</div>
+      <div class="q-opt" data-s='{"O":2}'><span class="check-dot">✓</span>我学了！但没学到点上</div>
+      <div class="q-opt" data-s='{"R":1,"I":1}'><span class="check-dot">✓</span>不想学，但怕不学被淘汰</div>
+      <div class="q-opt" data-s='{}'><span class="check-dot">✓</span>已经在用了，挺好的</div>
+    </div>
+  </div>
+</div>
+
+<!-- ========== Q6 ========== -->
+<div class="swiper-slide pg-q pg-q5" data-q="5">
+  <div class="deco deco-ring" style="width:60px;height:60px;border-color:#E65100;bottom:18%;left:6%;opacity:.12"></div>
+  <div class="content-z">
+    <div class="q-top">
+      <div class="q-num">06</div>
+      <div class="q-of">6 / 8</div>
+    </div>
+    <div class="q-bar"><div class="q-bar-fill" style="width:75%"></div></div>
+    <div class="q-title">关注了多少「AI干货」账号？ 🔔</div>
+    <div class="q-opts">
+      <div class="q-opt" data-s='{}'><span class="check-dot">✓</span>0个，拒绝信息茧房</div>
+      <div class="q-opt" data-s='{}'><span class="check-dot">✓</span>几个，偶尔看看</div>
+      <div class="q-opt" data-s='{"O":1,"P":1}'><span class="check-dot">✓</span>十几个，收藏几百条，实操0条</div>
+      <div class="q-opt" data-s='{"O":2}'><span class="check-dot">✓</span>多到记不清，天天被轰炸</div>
+    </div>
+  </div>
+</div>
+
+<!-- ========== Q7 ========== -->
+<div class="swiper-slide pg-q pg-q6" data-q="6">
+  <div class="deco deco-star" style="font-size:40px;top:14%;right:10%;color:#311B92;opacity:.08">✦</div>
+  <div class="content-z">
+    <div class="q-top">
+      <div class="q-num">07</div>
+      <div class="q-of">7 / 8</div>
+    </div>
+    <div class="q-bar"><div class="q-bar-fill" style="width:87.5%"></div></div>
+    <div class="q-title">如果AI能完全胜任你的工作？ 🤖</div>
+    <div class="q-opts">
+      <div class="q-opt" data-s='{}'><span class="check-dot">✓</span>终于能做真正想做的事了</div>
+      <div class="q-opt" data-s='{"I":2}'><span class="check-dot">✓</span>那我的价值在哪里？</div>
+      <div class="q-opt" data-s='{"P":1,"R":1}'><span class="check-dot">✓</span>先焦虑三天，再假装没事</div>
+      <div class="q-opt" data-s='{"F":2}'><span class="check-dot">✓</span>立刻想「我还能做什么」</div>
+    </div>
+  </div>
+</div>
+
+<!-- ========== Q8 ========== -->
+<div class="swiper-slide pg-q pg-q7" data-q="7">
+  <div class="deco deco-circle" style="width:130px;height:130px;background:#EC407A;bottom:-30px;right:-30px;opacity:.1"></div>
+  <div class="content-z">
+    <div class="q-top">
+      <div class="q-num">08</div>
+      <div class="q-of">8 / 8</div>
+    </div>
+    <div class="q-bar"><div class="q-bar-fill" style="width:100%"></div></div>
+    <div class="q-title">「AI焦虑」这件事本身…… 🌀</div>
+    <div class="q-opts">
+      <div class="q-opt" data-s='{}'><span class="check-dot">✓</span>贩卖焦虑，别上当</div>
+      <div class="q-opt" data-s='{}'><span class="check-dot">✓</span>焦虑正常，但得行动</div>
+      <div class="q-opt" data-s='{"O":1,"I":1,"P":1}'><span class="check-dot">✓</span>连焦虑都焦虑了，元焦虑</div>
+      <div class="q-opt" data-s='{"P":2}'><span class="check-dot">✓</span>我已经麻了</div>
+    </div>
+  </div>
+</div>
+
+<!-- ========== LOADING ========== -->
+<div class="swiper-slide pg-loading" id="pgLoad">
+  <div class="deco deco-ring" style="width:120px;height:120px;border-color:#4E2700;top:15%;right:-20px;opacity:.08"></div>
+  <div class="content-z">
+    <div class="ld-emoji">🧪</div>
+    <div class="ld-title">正在化验你的焦虑成分…</div>
+    <div class="ld-steps">
+      <div class="ld-step" id="l1"><span class="ico">🔍</span> 扫描焦虑因子…</div>
+      <div class="ld-step" id="l2"><span class="ico">📱</span> 发现大量未打开的AI App…</div>
+      <div class="ld-step" id="l3"><span class="ico">🧬</span> 分离焦虑浓度…</div>
+      <div class="ld-step" id="l4"><span class="ico">✅</span> 报告生成完毕！</div>
+    </div>
+    <div class="ld-bar"><div class="ld-bar-fill" id="ldBar"></div></div>
+  </div>
+</div>
+
+<!-- ========== RESULT: RADAR ========== -->
+<div class="swiper-slide pg-r2" id="pgR2">
+  <div class="deco deco-ring" style="width:100px;height:100px;border-color:#1B3409;bottom:10%;right:5%;opacity:.08"></div>
+  <div class="content-z">
+    <div class="r2-title">🧪 你的焦虑配方</div>
+    <div class="r2-canvas-wrap">
+      <canvas class="r2-canvas" id="radarCv" width="520" height="520"></canvas>
+    </div>
+    <div class="r2-desc" id="rDesc"></div>
+  </div>
+</div>
+
+<!-- ========== FACTS ========== -->
+<div class="swiper-slide pg-facts" id="pgFacts">
+  <div class="content-z">
+    <div class="facts-title">🧊 关于AI焦虑，你不知道的冷知识</div>
+    <div style="text-align:center;font-size:13px;opacity:.45;margin-top:-14px;margin-bottom:18px">你焦虑的时候，科学家也没闲着</div>
+    <div id="factsContainer"></div>
+  </div>
+</div>
+
+<!-- ========== RESULT: SCORE + SHARE ========== -->
+<div class="swiper-slide pg-r1" id="pgR1">
+  <div class="content-z" style="display:flex;flex-direction:column;align-items:center">
+    <div class="r1-card" id="resultCard">
+      <div class="r1-badge">YOUR AI ANXIETY INDEX</div>
+      <div class="r1-score" id="rScore">0</div>
+      <div class="r1-max">/ 100</div>
+      <div class="r1-fig stick-figure" id="rFig"></div>
+      <div class="r1-type" id="rType"></div>
+      <div class="r1-quote" id="rQuote"></div>
+      <div class="r1-tagline" id="rTagline"></div>
+      <div class="r1-card-brand">测测你的AI焦虑指数 · 加米实验室</div>
+      <div class="r1-qr">
+        <div class="r1-qr-img" id="rQr">替换二维码</div>
+        <div class="r1-qr-text">关注公众号「加米实验室」<br>回复「AI焦虑」获取测试链接</div>
+      </div>
+    </div>
+    <div class="share-btns">
+      <button class="s-btn s-btn-pri" id="btnSave">保存图片</button>
+      <button class="s-btn s-btn-sec" id="btnRetry">再测一次</button>
+    </div>
+    <div class="share-foot">加米实验室 Jam Studio · 2026</div>
+  </div>
+</div>
+
+<!-- ========== JAMEE MESSAGE ========== -->
+<div class="swiper-slide pg-r3" id="pgR3">
+  <div class="deco deco-star" style="font-size:70px;top:10%;right:5%;color:#4E3800">✦</div>
+  <div class="content-z">
+    <div class="r3-wrap" id="r3Content"></div>
+  </div>
+</div>
+
+</div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+<script>
+// ===== VH fix =====
+function setVH(){document.documentElement.style.setProperty('--vh',window.innerHeight*.01+'px')}
+setVH(); window.addEventListener('resize',setVH);
+
+// ===== Swipe hint arrows =====
+const skipIds=['pgLoad','pgR1','pgR3'];
+const textIds=['pgR2','pgFacts'];
+document.querySelectorAll('.swiper-slide').forEach(sl=>{
+  if(skipIds.includes(sl.id)) return;
+  if(sl.querySelector('.cover-start')) return;
+  if(sl.querySelector('.share-btns')) return;
+  const h=document.createElement('div');
+  h.className='swipe-hint';
+  const arrow='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6,9 12,15 18,9"/></svg>';
+  if(textIds.includes(sl.id)){
+    h.innerHTML='<div class="swipe-hint-text">下滑看更多</div>'+arrow;
+  } else {
+    h.innerHTML=arrow;
+  }
+  sl.appendChild(h);
+});
+
+// ===== Watermark (only first 3 pages) =====
+const slides=document.querySelectorAll('.swiper-slide');
+slides.forEach((sl,i)=>{
+  if(i>=3) return;
+  const wm=document.createElement('div');
+  wm.textContent='Jam Studio 加米实验室 出品';
+  wm.className='watermark-bottom';
+  sl.appendChild(wm);
+});
+
+// ===== Data =====
+const P={
+  collector:{name:'收藏夹战士',score:72,dims:{R:15,O:42,F:20,I:8,P:35},
+    quote:'你的收藏夹里，藏着一整个AI大学。',tagline:'收藏了一个亿，实操了个寂寞。',desc:'你不是不想学，你是被淹没了。',color:'#F0AD4E'},
+  midnight:{name:'午夜焦虑体质',score:85,dims:{R:38,O:20,F:12,I:35,P:15},
+    quote:'凌晨2点的AI新闻，是你的专属恐怖片。',tagline:'凌晨两点，AI新闻是我的安眠药反义词。',desc:'你最怕的不是AI，是「被时代抛下」。',color:'#5C6BC0'},
+  fomo:{name:'FOMO冲浪手',score:68,dims:{R:10,O:30,F:42,I:8,P:15},
+    quote:'每个风口都想追，但浪太多根本站不稳。',tagline:'每个风口都想追，结果浪把我拍了。',desc:'你的焦虑不是不够努力，是方向太多。',color:'#EF5350'},
+  zen:{name:'佛系观望员',score:45,dims:{R:12,O:10,F:8,I:15,P:30},
+    quote:'表面岁月静好，口袋里的手机静音了但没关。',tagline:'人工智能千万条，与我无关第一条。',desc:'你不是不焦虑，你是把焦虑藏起来了。',color:'#66BB6A'},
+  existential:{name:'存在主义患者',score:90,dims:{R:35,O:15,F:10,I:45,P:20},
+    quote:'你在想的不是「怎么学AI」，你在想「我是谁」。',tagline:'别人在学prompt，我在想人生意义。',desc:'你的焦虑已经升级到哲学层面了。',color:'#AB47BC'},
+  landed:{name:'已通关玩家',score:20,dims:{R:5,O:8,F:10,I:5,P:5},
+    quote:'你跟AI已经是队友了，恭喜通关。',tagline:'AI是工具，我是甲方。',desc:'你已经和AI达成和解了。',color:'#FFA726'}
+};
+const DN={R:'被替代',O:'信息过载',F:'FOMO',I:'身份认同',P:'行动瘫痪'};
+
+// ===== SVG =====
+function mkFig(type,dark){
+  const lc=dark?'#f0ebe3':'#2d2216', ac=P[type].color, sw=2.8;
+  const F={
+    collector:`<svg viewBox="0 0 200 200" fill="none">
+      <g class="float-el bob"><text x="62" y="20" font-size="15" fill="${ac}" font-weight="700">★</text><text x="98" y="14" font-size="11" fill="${ac}" opacity=".5">★</text><text x="128" y="22" font-size="13" fill="${ac}" opacity=".7">★</text></g>
+      <circle class="hd" cx="100" cy="50" r="16" stroke="${lc}" stroke-width="${sw}" stroke-linecap="round"/>
+      <circle class="eye-el" cx="94" cy="48" r="2.5" fill="${lc}"/><circle class="eye-el" cx="106" cy="48" r="2.5" fill="${lc}"/>
+      <line class="mouth-el" x1="95" y1="56" x2="105" y2="56" stroke="${lc}" stroke-width="2" stroke-linecap="round"/>
+      <line class="bd" x1="100" y1="66" x2="100" y2="108" stroke="${lc}" stroke-width="${sw}" stroke-linecap="round"/>
+      <line class="bd" x1="100" y1="80" x2="70" y2="94" stroke="${lc}" stroke-width="${sw}" stroke-linecap="round"/>
+      <line class="bd" x1="100" y1="80" x2="130" y2="94" stroke="${lc}" stroke-width="${sw}" stroke-linecap="round"/>
+      <rect class="prop-el" x="58" y="86" width="16" height="22" rx="3" fill="${ac}"/><rect class="prop-el" x="126" y="86" width="16" height="22" rx="3" fill="${ac}"/>
+      <line class="bd" x1="100" y1="108" x2="80" y2="130" stroke="${lc}" stroke-width="${sw}" stroke-linecap="round"/>
+      <line class="bd" x1="80" y1="130" x2="72" y2="148" stroke="${lc}" stroke-width="${sw}" stroke-linecap="round"/>
+      <line class="bd" x1="100" y1="108" x2="120" y2="130" stroke="${lc}" stroke-width="${sw}" stroke-linecap="round"/>
+      <line class="bd" x1="120" y1="130" x2="128" y2="148" stroke="${lc}" stroke-width="${sw}" stroke-linecap="round"/>
+      <rect class="prop-el" x="60" y="148" width="80" height="9" rx="3" fill="${ac}" opacity=".7"/>
+      <rect class="prop-el" x="64" y="157" width="72" height="9" rx="3" fill="${ac}" opacity=".45"/>
+      <rect class="prop-el" x="68" y="166" width="64" height="9" rx="3" fill="${ac}" opacity=".25"/>
+    </svg>`,
+    midnight:`<svg viewBox="0 0 200 200" fill="none">
+      <g class="float-el bob"><polygon points="122,8 113,28 122,28 110,46" fill="${ac}"/><text x="70" y="26" font-size="20" font-weight="800" fill="${ac}">!!</text></g>
+      <rect class="prop-el" x="32" y="102" width="136" height="72" rx="14" fill="${ac}" opacity=".12"/>
+      <path class="prop-el" d="M32,114 Q100,98 168,114" stroke="${ac}" opacity=".25" stroke-width="2" fill="none"/>
+      <circle class="hd" cx="88" cy="82" r="16" stroke="${lc}" stroke-width="${sw}" stroke-linecap="round"/>
+      <circle class="eye-el" cx="82" cy="80" r="3" fill="${lc}"/><circle class="eye-el" cx="94" cy="80" r="3" fill="${lc}"/>
+      <ellipse class="mouth-el" cx="88" cy="90" rx="3.5" ry="4" stroke="${lc}" stroke-width="1.8" fill="none"/>
+      <line class="bd" x1="106" y1="86" x2="138" y2="72" stroke="${lc}" stroke-width="${sw}" stroke-linecap="round"/>
+      <rect class="prop-el" x="132" y="58" width="18" height="28" rx="4" fill="${ac}"/>
+      <circle class="prop-el" cx="141" cy="72" r="18" fill="${ac}" opacity=".08"/>
+    </svg>`,
+    fomo:`<svg viewBox="0 0 200 200" fill="none">
+      <g class="float-el bob"><rect x="112" y="6" width="34" height="17" rx="8.5" fill="${ac}"/><text x="129" y="18" font-size="9" font-weight="700" fill="#fff" text-anchor="middle">NEW</text></g>
+      <circle class="hd" cx="92" cy="50" r="16" stroke="${lc}" stroke-width="${sw}" stroke-linecap="round"/>
+      <line class="eye-el" x1="84" y1="48" x2="89" y2="50" stroke="${lc}" stroke-width="2.5" stroke-linecap="round"/>
+      <line class="eye-el" x1="96" y1="50" x2="101" y2="48" stroke="${lc}" stroke-width="2.5" stroke-linecap="round"/>
+      <path class="mouth-el" d="M88,56 Q92,60 96,56" stroke="${lc}" stroke-width="2" stroke-linecap="round" fill="none"/>
+      <line class="bd" x1="92" y1="66" x2="88" y2="108" stroke="${lc}" stroke-width="${sw}" stroke-linecap="round"/>
+      <line class="bd" x1="90" y1="80" x2="68" y2="90" stroke="${lc}" stroke-width="${sw}" stroke-linecap="round"/>
+      <line class="bd" x1="90" y1="80" x2="130" y2="66" stroke="${lc}" stroke-width="${sw}" stroke-linecap="round"/>
+      <line class="bd" x1="130" y1="66" x2="146" y2="58" stroke="${lc}" stroke-width="${sw}" stroke-linecap="round"/>
+      <line class="bd" x1="88" y1="108" x2="76" y2="138" stroke="${lc}" stroke-width="${sw}" stroke-linecap="round"/>
+      <line class="bd" x1="88" y1="108" x2="100" y2="138" stroke="${lc}" stroke-width="${sw}" stroke-linecap="round"/>
+      <ellipse class="prop-el" cx="88" cy="145" rx="46" ry="7" fill="${ac}" opacity=".7"/>
+      <path class="prop-el" d="M22,164 Q54,154 86,164 Q118,174 150,164 Q174,156 196,164" stroke="${ac}" stroke-width="2" opacity=".25" fill="none"/>
+    </svg>`,
+    zen:`<svg viewBox="0 0 200 200" fill="none">
+      <g class="float-el bob"><text x="108" y="26" font-size="16" font-weight="700" fill="${ac}" opacity=".8">z</text><text x="120" y="16" font-size="11" font-weight="700" fill="${ac}" opacity=".5">z</text><text x="128" y="8" font-size="8" font-weight="700" fill="${ac}" opacity=".3">z</text></g>
+      <line class="prop-el" x1="130" y1="28" x2="130" y2="180" stroke="${lc}" stroke-width="1.5" opacity=".1"/>
+      <circle class="hd" cx="90" cy="50" r="16" stroke="${lc}" stroke-width="${sw}" stroke-linecap="round"/>
+      <line class="eye-el" x1="83" y1="48" x2="89" y2="48" stroke="${lc}" stroke-width="2.5" stroke-linecap="round"/>
+      <line class="eye-el" x1="94" y1="48" x2="100" y2="48" stroke="${lc}" stroke-width="2.5" stroke-linecap="round"/>
+      <path class="mouth-el" d="M87,55 Q90,59 93,55" stroke="${lc}" stroke-width="2" stroke-linecap="round" fill="none"/>
+      <line class="bd" x1="90" y1="66" x2="88" y2="118" stroke="${lc}" stroke-width="${sw}" stroke-linecap="round"/>
+      <line class="bd" x1="89" y1="82" x2="74" y2="102" stroke="${lc}" stroke-width="${sw}" stroke-linecap="round"/>
+      <line class="bd" x1="89" y1="82" x2="104" y2="102" stroke="${lc}" stroke-width="${sw}" stroke-linecap="round"/>
+      <line class="bd" x1="88" y1="118" x2="82" y2="168" stroke="${lc}" stroke-width="${sw}" stroke-linecap="round"/>
+      <line class="bd" x1="88" y1="118" x2="106" y2="136" stroke="${lc}" stroke-width="${sw}" stroke-linecap="round"/>
+      <line class="bd" x1="106" y1="136" x2="130" y2="136" stroke="${lc}" stroke-width="${sw}" stroke-linecap="round"/>
+      <rect class="prop-el" x="96" y="98" width="10" height="5" rx="1.5" fill="${ac}"/>
+    </svg>`,
+    existential:`<svg viewBox="0 0 200 200" fill="none">
+      <g class="float-el bob"><text x="58" y="26" font-size="24" font-weight="800" fill="${ac}">?</text><text x="96" y="16" font-size="30" font-weight="800" fill="${ac}" opacity=".65">?</text><text x="132" y="30" font-size="20" font-weight="800" fill="${ac}" opacity=".4">?</text></g>
+      <circle class="hd" cx="100" cy="58" r="16" stroke="${lc}" stroke-width="${sw}" stroke-linecap="round" stroke-dasharray="3,4"/>
+      <circle class="eye-el" cx="94" cy="56" r="2" fill="${lc}" opacity=".45"/><circle class="eye-el" cx="106" cy="56" r="2" fill="${lc}" opacity=".45"/>
+      <g class="mouth-el" opacity=".4"><circle cx="95" cy="66" r="1.5" fill="${lc}"/><circle cx="100" cy="66" r="1.5" fill="${lc}"/><circle cx="105" cy="66" r="1.5" fill="${lc}"/></g>
+      <line class="bd" x1="100" y1="74" x2="100" y2="106" stroke="${lc}" stroke-width="${sw}" stroke-linecap="round" stroke-dasharray="4,3"/>
+      <line class="bd" x1="100" y1="84" x2="68" y2="76" stroke="${lc}" stroke-width="${sw}" stroke-linecap="round" stroke-dasharray="4,3"/>
+      <line class="bd" x1="100" y1="84" x2="132" y2="76" stroke="${lc}" stroke-width="${sw}" stroke-linecap="round" stroke-dasharray="4,3"/>
+      <line class="bd" x1="100" y1="106" x2="86" y2="122" stroke="${lc}" stroke-width="${sw}" stroke-linecap="round" stroke-dasharray="4,3"/>
+      <line class="bd" x1="86" y1="122" x2="110" y2="128" stroke="${lc}" stroke-width="${sw}" stroke-linecap="round" stroke-dasharray="4,3"/>
+      <line class="bd" x1="100" y1="106" x2="114" y2="122" stroke="${lc}" stroke-width="${sw}" stroke-linecap="round" stroke-dasharray="4,3"/>
+      <line class="bd" x1="114" y1="122" x2="90" y2="128" stroke="${lc}" stroke-width="${sw}" stroke-linecap="round" stroke-dasharray="4,3"/>
+      <g class="prop-el" opacity=".35"><line x1="58" y1="162" x2="100" y2="156" stroke="${ac}" stroke-width="1.5"/><line x1="100" y1="156" x2="142" y2="162" stroke="${ac}" stroke-width="1.5"/><line x1="100" y1="156" x2="95" y2="174" stroke="${ac}" stroke-width="1"/><line x1="100" y1="156" x2="108" y2="176" stroke="${ac}" stroke-width="1"/></g>
+    </svg>`,
+    landed:`<svg viewBox="0 0 200 200" fill="none">
+      <g class="float-el bob"><circle cx="100" cy="14" r="9" fill="${ac}"/><line x1="100" y1="1" x2="100" y2="4" stroke="${ac}" stroke-width="2"/><line x1="88" y1="5" x2="86" y2="2" stroke="${ac}" stroke-width="2"/><line x1="112" y1="5" x2="114" y2="2" stroke="${ac}" stroke-width="2"/><line x1="81" y1="14" x2="78" y2="14" stroke="${ac}" stroke-width="2"/><line x1="119" y1="14" x2="122" y2="14" stroke="${ac}" stroke-width="2"/></g>
+      <circle class="hd" cx="88" cy="52" r="16" stroke="${lc}" stroke-width="${sw}" stroke-linecap="round"/>
+      <path class="eye-el" d="M81,50 Q84,46 87,50" stroke="${lc}" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+      <path class="eye-el" d="M92,50 Q95,46 98,50" stroke="${lc}" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+      <path class="mouth-el" d="M83,58 Q88,65 93,58" stroke="${lc}" stroke-width="2" stroke-linecap="round" fill="none"/>
+      <line class="bd" x1="88" y1="68" x2="88" y2="114" stroke="${lc}" stroke-width="${sw}" stroke-linecap="round"/>
+      <line class="bd" x1="88" y1="82" x2="62" y2="94" stroke="${lc}" stroke-width="${sw}" stroke-linecap="round"/>
+      <rect class="prop-el" x="46" y="86" width="20" height="14" rx="3" fill="${ac}"/><rect class="prop-el" x="46" y="84" width="20" height="4" rx="1.5" fill="${ac}" opacity=".65"/>
+      <line class="bd" x1="88" y1="82" x2="116" y2="68" stroke="${lc}" stroke-width="${sw}" stroke-linecap="round"/>
+      <line class="bd" x1="116" y1="68" x2="126" y2="62" stroke="${lc}" stroke-width="${sw}" stroke-linecap="round"/>
+      <g class="prop-el"><rect x="130" y="50" width="22" height="20" rx="5" fill="${ac}"/><circle cx="138" cy="58" r="2" fill="#fff"/><circle cx="146" cy="58" r="2" fill="#fff"/><path d="M137,64 Q141,68 145,64" stroke="#fff" stroke-width="1.5" stroke-linecap="round" fill="none"/><line x1="141" y1="46" x2="141" y2="40" stroke="${ac}" stroke-width="2"/><circle cx="141" cy="38" r="2.5" fill="${ac}"/><line x1="130" y1="60" x2="126" y2="62" stroke="${ac}" stroke-width="2"/></g>
+      <line class="bd" x1="88" y1="114" x2="74" y2="152" stroke="${lc}" stroke-width="${sw}" stroke-linecap="round"/>
+      <line class="bd" x1="88" y1="114" x2="102" y2="152" stroke="${lc}" stroke-width="${sw}" stroke-linecap="round"/>
+      <line class="prop-el" x1="50" y1="154" x2="126" y2="154" stroke="${lc}" stroke-width="1.5" opacity=".15"/>
+    </svg>`
+  };
+  return F[type]||'';
+}
+
+// ===== Logic =====
+let scores={R:0,O:0,F:0,I:0,P:0}, rKey=null;
+
+function recalc(){
+  scores={R:0,O:0,F:0,I:0,P:0};
+  document.querySelectorAll('[data-q]').forEach(sl=>{
+    const sel=sl.querySelector('.q-opt.sel');
+    if(sel){const s=JSON.parse(sel.dataset.s);for(const[k,v]of Object.entries(s))scores[k]+=v;}
+  });
+}
+function getPers(){
+  recalc();
+  const tot=Object.values(scores).reduce((a,b)=>a+b,0);
+  if(tot<=2) return 'landed';
+  const sr=Object.entries(scores).sort((a,b)=>b[1]-a[1]);
+  const[t1]=sr[0],[t2]=sr[1];
+  if((t1==='O'||t1==='P')&&(t2==='O'||t2==='P')) return 'collector';
+  if((t1==='R'||t1==='I')&&(t2==='R'||t2==='I')) return scores.I>=scores.R?'existential':'midnight';
+  if(t1==='F'||(t1==='O'&&t2==='F')) return 'fomo';
+  if(t1==='P'&&scores.P>4) return 'zen';
+  if(t1==='I') return 'existential';
+  if(t1==='R') return 'midnight';
+  return 'collector';
+}
+
+// ===== Options =====
+document.addEventListener('click',e=>{
+  const o=e.target.closest('.q-opt');
+  if(!o) return;
+  o.closest('[data-q]').querySelectorAll('.q-opt').forEach(x=>x.classList.remove('sel'));
+  o.classList.add('sel');
+  setTimeout(()=>swiper.slideNext(),420);
+});
+
+// ===== Loading =====
+function runLoad(cb){
+  const ids=['l1','l2','l3','l4'], bar=document.getElementById('ldBar');
+  let i=0;
+  function next(){
+    if(i>=ids.length) return;
+    const el=document.getElementById(ids[i]);
+    el.classList.add('on');
+    bar.style.width=((i+1)/ids.length*100)+'%';
+    if(i===ids.length-1){el.classList.add('done');setTimeout(cb,600);}
+    i++;
+    if(i<ids.length) setTimeout(next,550+Math.random()*350);
+  }
+  setTimeout(next,250);
+}
+
+// ===== Radar =====
+function drawRadar(dims){
+  const cv=document.getElementById('radarCv'),ctx=cv.getContext('2d');
+  const W=cv.width,H=cv.height,cx=W/2,cy=H/2,R=190;
+  const keys=['R','O','F','I','P'],labels=['被替代','信息过载','FOMO','身份认同','行动瘫痪'];
+  const n=5,mx=50;
+  ctx.clearRect(0,0,W,H);
+  for(let r=1;r<=4;r++){
+    const rd=R*r/4;ctx.beginPath();
+    for(let i=0;i<=n;i++){const a=Math.PI*2*i/n-Math.PI/2;const x=cx+rd*Math.cos(a),y=cy+rd*Math.sin(a);i===0?ctx.moveTo(x,y):ctx.lineTo(x,y);}
+    ctx.strokeStyle='rgba(27,52,9,0.1)';ctx.lineWidth=1;ctx.stroke();
+  }
+  for(let i=0;i<n;i++){const a=Math.PI*2*i/n-Math.PI/2;ctx.beginPath();ctx.moveTo(cx,cy);ctx.lineTo(cx+R*Math.cos(a),cy+R*Math.sin(a));ctx.strokeStyle='rgba(27,52,9,0.08)';ctx.stroke();}
+  ctx.beginPath();
+  for(let i=0;i<=n;i++){const idx=i%n,v=Math.min(dims[keys[idx]]||0,mx),r=R*v/mx,a=Math.PI*2*idx/n-Math.PI/2;i===0?ctx.moveTo(cx+r*Math.cos(a),cy+r*Math.sin(a)):ctx.lineTo(cx+r*Math.cos(a),cy+r*Math.sin(a));}
+  ctx.fillStyle='rgba(76,175,80,0.2)';ctx.fill();ctx.strokeStyle='#388E3C';ctx.lineWidth=2.5;ctx.stroke();
+  for(let i=0;i<n;i++){
+    const v=Math.min(dims[keys[i]]||0,mx),r=R*v/mx,a=Math.PI*2*i/n-Math.PI/2;
+    const x=cx+r*Math.cos(a),y=cy+r*Math.sin(a);
+    ctx.beginPath();ctx.arc(x,y,5,0,Math.PI*2);ctx.fillStyle='#388E3C';ctx.fill();
+    const lx=cx+(R+30)*Math.cos(a),ly=cy+(R+30)*Math.sin(a);
+    ctx.font='500 22px "Noto Sans SC",sans-serif';ctx.fillStyle='rgba(27,52,9,0.5)';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(labels[i],lx,ly);
+  }
+}
+
+function animN(el,tgt,dur){
+  const st=performance.now();
+  function step(now){const t=Math.min((now-st)/dur,1);el.textContent=Math.round((1-Math.pow(1-t,3))*tgt);if(t<1)requestAnimationFrame(step);}
+  requestAnimationFrame(step);
+}
+
+function showResults(){
+  rKey=getPers();const p=P[rKey];
+  document.getElementById('rType').textContent=p.name;
+  document.getElementById('rType').style.color=p.color;
+  document.getElementById('rQuote').textContent='「'+p.quote+'」';
+  document.getElementById('rTagline').textContent=p.tagline;
+  document.getElementById('rFig').innerHTML=mkFig(rKey,false);
+  document.getElementById('rFig').classList.add('draw-in');
+  drawRadar(p.dims);
+  const sr=Object.entries(p.dims).sort((a,b)=>b[1]-a[1]);
+  document.getElementById('rDesc').innerHTML=`主要成分：<span class="hl">${DN[sr[0][0]]} ${sr[0][1]}%</span> + <span class="hl">${DN[sr[1][0]]} ${sr[1][1]}%</span><br>${p.desc}`;
+
+  // Facts page
+  const allFacts=[
+    {text:'<span class="fact-hl">52%</span> 的职场人对 AI 的影响感到担忧',src:'Pew Research Center, 2025',tags:['R','F','O']},
+    {text:'<span class="fact-hl">32%</span> 的人认为 AI 将减少工作机会',src:'Pew Research Center, 2025 (n=5,273)',tags:['R']},
+    {text:'女性的 AI 焦虑指数<span class="fact-hl">显著高于</span>男性（73.6 vs 65.5）',src:'Hajek et al. 2025, PLOS One',tags:['R','I']},
+    {text:'AI 焦虑与<span class="fact-hl">抑郁症状</span>显著正相关（r=.32）',src:'Hajek et al. 2025, PLOS One',tags:['I','P']},
+    {text:'AI 焦虑越高，<span class="fact-hl">生活满意度</span>和<span class="fact-hl">幸福感</span>越低',src:'Hajek et al. 2025, PLOS One',tags:['I','P','O']},
+    {text:'退休人群的焦虑指数<span class="fact-hl">高于在职人群</span>（75.0 vs 65.9）',src:'Hajek et al. 2025, PLOS One',tags:['R','P']},
+    {text:'「<span class="fact-hl">工作替代焦虑</span>」是 AI 焦虑最核心的维度之一',src:'Wang & Wang 2019, AIAS 量表',tags:['R']},
+    {text:'「<span class="fact-hl">学习焦虑</span>」是 AI 焦虑的四大维度之一，信度极高',src:'Wang & Wang 2019, Cronbach\'s α=.98',tags:['O','F','P']},
+  ];
+  // Pick 4 facts: prioritize ones matching top dimensions
+  const topDims=Object.entries(p.dims).sort((a,b)=>b[1]-a[1]).map(x=>x[0]);
+  const scored=allFacts.map(f=>({...f,rel:f.tags.filter(t=>topDims.slice(0,2).includes(t)).length}));
+  scored.sort((a,b)=>b.rel-a.rel);
+  const picked=scored.slice(0,4);
+  document.getElementById('factsContainer').innerHTML=picked.map((f,i)=>`<div class="fact-card"><div class="fact-num">0${i+1}</div><div class="fact-body"><div class="fact-text">${f.text}</div><div class="fact-src">${f.src}</div></div></div>`).join('');
+
+  // R3 dynamic content
+  const ref=`<div class="r3-ref"><div style="font-weight:600;margin-bottom:4px;opacity:.4">References</div>[1] Hajek, A. et al. (2025). Translation and validation of the artificial intelligence anxiety scale in German. <i>PLOS One</i>, 20(10), e0333073.<br>[2] Wang, Y. &amp; Wang, Y. (2019). Development and validation of an artificial intelligence anxiety scale. <i>Interactive Learning Environments</i>, 30(4), 619–634.<br>[3] Pew Research Center (2025). AI and the Future of Workers. Survey of 5,273 U.S. adults.</div>`;
+  let r3='<div class="r3-quot">"</div>';
+  if(rKey==='landed'||rKey==='zen'){
+    r3+=`<p>你已经跑在大多数人前面了。</p>`;
+    r3+=`<p>但你身边一定有人还在焦虑，<br>不知道从哪开始，不敢迈出第一步。</p>`;
+    r3+=`<p class="bold">把这个测试分享给 TA，<br>有时候「你不是一个人」<br>就是最好的安慰。</p>`;
+  } else {
+    r3+=`<p>看到这里，深呼吸一下。</p>`;
+    r3+=`<p>焦虑说明你在乎，在乎说明你没放弃。<br>这本身就很了不起。</p>`;
+    r3+=`<p class="bold">焦虑的反面不是「不焦虑」，<br>是「开始做」。</p>`;
+    r3+=`<p>不用学完所有课程，不用下载所有 App。<br>找到一件 AI 能帮你的小事，<br>先做起来就好。</p>`;
+  }
+  r3+=ref;
+  document.getElementById('r3Content').innerHTML=r3;
+}
+
+// ===== Swiper =====
+const swiper=new Swiper('#app',{
+  direction:'vertical',speed:600,threshold:30,resistanceRatio:0.35,
+  on:{
+    slideChange(){
+      const sl=this.slides[this.activeIndex];
+      if(sl.id==='pgLoad'){
+        this.allowTouchMove=false;
+        runLoad(()=>{showResults();this.allowTouchMove=true;this.slideNext();});
+      }
+      if(sl.id==='pgR1'){
+        setTimeout(()=>animN(document.getElementById('rScore'),P[rKey].score,1200),200);
+      }
+    }
+  }
+});
+
+// ===== Save =====
+document.getElementById('btnSave').addEventListener('click',()=>{
+  html2canvas(document.getElementById('resultCard'),{scale:3,backgroundColor:'#fff',useCORS:true})
+  .then(cv=>{const l=document.createElement('a');l.download='AI焦虑指数.png';l.href=cv.toDataURL('image/png');l.click();showToast('图片已保存');})
+  .catch(()=>showToast('长按卡片即可保存'));
+});
+
+document.getElementById('btnRetry').addEventListener('click',()=>{
+  scores={R:0,O:0,F:0,I:0,P:0};
+  document.querySelectorAll('.q-opt.sel').forEach(o=>o.classList.remove('sel'));
+  ['l1','l2','l3','l4'].forEach(id=>{document.getElementById(id).classList.remove('on','done');});
+  document.getElementById('ldBar').style.width='0%';
+  document.getElementById('rFig').classList.remove('draw-in');
+  swiper.slideTo(0,0);
+});
+
+function showToast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2000);}
+</script>
+</body>
+</html>
